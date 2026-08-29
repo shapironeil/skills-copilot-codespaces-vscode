@@ -1,0 +1,37 @@
+{
+  "_comment": "TED Search API v3 client configuration. The API is free and keyless (POST, anonymous). fields_superset lists candidate eForms field names; the extractor probes them at startup and automatically drops names the API rejects (each drop is logged to CLEANING_LOG.md). query_templates are tried in order on a tiny window until one returns HTTP 200; {iso3}/{d0}/{d1}/{cpv} are substituted. politeness_sleep_s is the pause between successive requests; the API is a public good - do not hammer it.",
+  "endpoint": "https://api.ted.europa.eu/v3/notices/search",
+  "scope": "ALL",
+  "page_size": 100,
+  "page_size_fallbacks": [250, 50],
+  "pagination_mode": "ITERATION",
+  "politeness_sleep_s": 0.7,
+  "max_retries": 6,
+  "backoff_base_s": 2,
+  "timeout_s": 90,
+  "monthly_count_split_threshold": 12000,
+  "query_templates": [
+    "(classification-cpv IN ({cpv}*)) AND buyer-country={iso3} AND publication-date>={d0} AND publication-date<={d1}",
+    "classification-cpv={cpv}* AND buyer-country={iso3} AND publication-date>={d0} AND publication-date<={d1}",
+    "(classification-cpv IN ({cpv}000000)) AND buyer-country={iso3} AND publication-date>={d0} AND publication-date<={d1}",
+    "buyer-country={iso3} AND publication-date>={d0} AND publication-date<={d1}"
+  ],
+  "_query_templates_comment": "Template 1-2: server-side CPV division filter (wildcard) - preferred, small volume. Template 3: parent-code filter, works only if the API expands the CPV hierarchy server-side; the extractor VALIDATES this by checking that returned notices actually carry non-728xx/72xx children before trusting it. Template 4: LAST RESORT - no CPV filter, full country-month volume, client-side filtering; the extractor asks for confirmation via --allow-unfiltered before using it.",
+  "fields_superset": [
+    "publication-number",
+    "publication-date",
+    "buyer-country",
+    "buyer-name",
+    "notice-type",
+    "form-type",
+    "contract-nature",
+    "classification-cpv",
+    "notice-title",
+    "total-value",
+    "total-value-cur",
+    "estimated-value",
+    "estimated-value-cur",
+    "main-activity",
+    "links"
+  ]
+}

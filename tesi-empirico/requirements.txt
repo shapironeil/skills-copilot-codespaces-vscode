@@ -1,0 +1,9 @@
+pandas>=2.0
+numpy
+scipy
+requests
+matplotlib
+statsmodels
+pyarrow
+differences>=0.3.0
+tabulate

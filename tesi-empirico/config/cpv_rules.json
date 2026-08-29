@@ -1,0 +1,9 @@
+{
+  "_comment": "CPV classification rules. Codes are matched on the 8-digit numeric part (before the check-digit dash). cyber_strict: 72800000 'Computer audit and testing services' and all children (prefix 728). cyber_broad_candidates: CPV families counted as cyber ONLY if a cyber keyword (config/cyber_keywords.json) matches the notice title: 72500000 'Computer-related services' (prefix 725), 72200000 'Software programming and consultancy' (prefix 722). ict_generic (placebo): CPV division 72 not classified cyber. 79417000 (safety consultancy = physical safety) is deliberately EXCLUDED everywhere - known misclassification trap identified in the thesis.",
+  "cyber_strict_prefixes": ["728"],
+  "cyber_broad_candidate_prefixes": ["725", "722"],
+  "ict_division_prefixes": ["72"],
+  "never_cyber_codes": ["79417000"],
+  "match_on": "any_cpv",
+  "_match_on_comment": "any_cpv = main + supplementary CPV codes are all considered; a notice is cyber_strict if ANY of its CPVs has a cyber_strict prefix. Alternative value 'main_cpv' restricts to the main code (first listed) - robustness option."
+}

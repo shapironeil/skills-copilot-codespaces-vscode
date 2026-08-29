@@ -1,0 +1,23 @@
+{
+  "_comment": "Sample countries for NIS2 procurement study. treatment_date = entry into force of national NIS2 transposition law (verified by author; passed to me as given). 'never' = not transposed within study window (through 2026-08). BE day was 'tbd' in spec: 2024-10-18 used (EU transposition deadline); only the month matters for the monthly panel - see CLEANING_LOG. CZ and EE have verified dates but were NOT in the country sample list; included here with in_default_sample=false. HR used HRK until 2022-12-31 (euro adoption 2023-01-01).",
+  "study_window": {"start": "2021-01", "end": "2026-08"},
+  "priority_subset": ["IT", "LT", "HR", "DE", "ES", "FR"],
+  "countries": {
+    "HR": {"iso3": "HRV", "name": "Croatia",  "currencies": ["HRK", "EUR"], "treatment_date": "2024-02-15", "group": "early",   "in_default_sample": true},
+    "LV": {"iso3": "LVA", "name": "Latvia",   "currencies": ["EUR"],        "treatment_date": "2024-09-01", "group": "early",   "in_default_sample": true},
+    "IT": {"iso3": "ITA", "name": "Italy",    "currencies": ["EUR"],        "treatment_date": "2024-10-16", "group": "early",   "in_default_sample": true},
+    "LT": {"iso3": "LTU", "name": "Lithuania","currencies": ["EUR"],        "treatment_date": "2024-10-18", "group": "early",   "in_default_sample": true},
+    "BE": {"iso3": "BEL", "name": "Belgium",  "currencies": ["EUR"],        "treatment_date": "2024-10-18", "group": "early",   "in_default_sample": true, "treatment_date_note": "day tbd in spec; month 2024-10 is what enters the panel"},
+    "HU": {"iso3": "HUN", "name": "Hungary",  "currencies": ["HUF"],        "treatment_date": "2025-01-01", "group": "mid",     "in_default_sample": true},
+    "SK": {"iso3": "SVK", "name": "Slovakia", "currencies": ["EUR"],        "treatment_date": "2025-01-01", "group": "mid",     "in_default_sample": true},
+    "FI": {"iso3": "FIN", "name": "Finland",  "currencies": ["EUR"],        "treatment_date": "2025-04-08", "group": "mid",     "in_default_sample": true},
+    "DK": {"iso3": "DNK", "name": "Denmark",  "currencies": ["DKK"],        "treatment_date": "2025-07-01", "group": "mid",     "in_default_sample": true},
+    "CZ": {"iso3": "CZE", "name": "Czechia",  "currencies": ["CZK"],        "treatment_date": "2025-11-01", "group": "late",    "in_default_sample": false, "note": "verified date but not in sample list of the study spec"},
+    "DE": {"iso3": "DEU", "name": "Germany",  "currencies": ["EUR"],        "treatment_date": "2025-12-06", "group": "late",    "in_default_sample": true},
+    "EE": {"iso3": "EST", "name": "Estonia",  "currencies": ["EUR"],        "treatment_date": "2026-01-01", "group": "late",    "in_default_sample": false, "note": "verified date but not in sample list of the study spec"},
+    "SE": {"iso3": "SWE", "name": "Sweden",   "currencies": ["SEK"],        "treatment_date": "2026-01-15", "group": "late",    "in_default_sample": true},
+    "IE": {"iso3": "IRL", "name": "Ireland",  "currencies": ["EUR"],        "treatment_date": "never",      "group": "control", "in_default_sample": true},
+    "ES": {"iso3": "ESP", "name": "Spain",    "currencies": ["EUR"],        "treatment_date": "never",      "group": "control", "in_default_sample": true},
+    "FR": {"iso3": "FRA", "name": "France",   "currencies": ["EUR"],        "treatment_date": "never",      "group": "control", "in_default_sample": true}
+  }
+}
