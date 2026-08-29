@@ -314,6 +314,11 @@ def main():
     save_spec(cs(p, "accel_share_ict", log=False, label="H3 accelerated share"),
               "h3_accel_share", "H3 — Accelerated procedures, ICT div. 72",
               "ATT, share accelerated")
+    save_spec(cs(p, "accel_share_cyber", log=False,
+                 label="H3 accelerated share (cyber only)"),
+              "h3_accel_share_cyber",
+              "H3 — Accelerated procedures among cyber tenders",
+              "ATT, share accelerated (cyber)")
     save_spec(cs(p, "negwc_share_ict", log=False, label="H3 neg. w/o call"),
               "h3_negwc_share", "H3 — Negotiated without call, ICT div. 72",
               "ATT, share negotiated w/o call")
