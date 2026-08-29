@@ -37,7 +37,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from ted_common import (OUTPUT_DIR, RAW_DIR, REF_DIR, load_countries,
-                        log_cleaning, month_range)
+                        log_cleaning, month_range, sample_countries)
 
 CATEGORIES = ["cyber_strict", "cyber_broad", "ict_generic", "other"]
 
@@ -64,10 +64,18 @@ def main():
         manifest = json.load(f)
     complete = {k for k, v in manifest.get("chunks", {}).items()
                 if v.get("status") == "complete"}
-    # grid countries: manifest ∪ data, so a country whose extraction completed
-    # with zero counted notices still gets its (all-zero) panel rows
+    # grid countries: data ∪ manifest ∪ configured sample — a sample country
+    # whose extraction never ran must appear as Z1 NaN rows, not vanish from
+    # the estimators' universe unnoticed
     manifest_countries = {k.split("/")[0] for k in manifest.get("chunks", {})}
-    countries = sorted(set(df["country"].unique()) | manifest_countries)
+    config_sample = set(sample_countries(ccfg).keys())
+    countries = sorted(set(df["country"].unique()) | manifest_countries
+                       | config_sample)
+    never_attempted = sorted(config_sample - manifest_countries)
+    if never_attempted:
+        log_cleaning("Panel WARNING",
+                     f"sample countries with no extraction chunks at all "
+                     f"(all-NaN in panel): {never_attempted}")
 
     # ---------------- FX conversion + deflation
     fx_path, hicp_path = REF_DIR / "fx_monthly.csv", REF_DIR / "hicp_monthly.csv"
@@ -161,6 +169,21 @@ def main():
         lambda c: cinfo.get(c, {}).get("treatment_date"))
     panel["treat_month"] = panel["treat_date"].map(
         lambda d: None if pd.isna(d) or d == "never" else str(d)[:7])
+
+    def alt_month(d):
+        """Robustness cohort: entry into force after mid-month -> next month
+        (IT 16th, LT 18th, BE 18th, SE 15th would otherwise count up to ~3
+        pre-treatment weeks as treated in cohort month g)."""
+        if pd.isna(d) or d == "never":
+            return None
+        d = str(d)
+        y, m = int(d[:4]), int(d[5:7])
+        day = int(d[8:10]) if len(d) >= 10 else 1
+        if day > 15:
+            y, m = (y + 1, 1) if m == 12 else (y, m + 1)
+        return f"{y:04d}-{m:02d}"
+
+    panel["treat_month_alt"] = panel["treat_date"].map(alt_month)
     panel["treated"] = [
         0 if pd.isna(tm) else int(m >= tm)
         for m, tm in zip(panel["month"], panel["treat_month"])]

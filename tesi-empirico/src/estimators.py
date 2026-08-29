@@ -3,6 +3,7 @@ Callaway–Sant'Anna (package `differences`, with a transparent manual
 fallback implementation), and event-study plotting."""
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
 
@@ -40,7 +41,14 @@ def build_country_month(panel_path=None) -> pd.DataFrame:
     wide["share_cyber"] = np.where(wide["n_ict72"] > 0,
                                    wide["n_cyber"] / wide["n_ict72"], np.nan)
 
-    meta = panel[["country", "month", "group", "treat_month"]].drop_duplicates()
+    # TESI_ALT_COHORT=1 -> robustness cohort (mid-month entry into force
+    # shifted to the following month; see CLEANING_LOG T1)
+    cohort_col = ("treat_month_alt"
+                  if os.environ.get("TESI_ALT_COHORT") == "1"
+                  and "treat_month_alt" in panel.columns else "treat_month")
+    meta = (panel[["country", "month", "group", cohort_col]]
+            .drop_duplicates()
+            .rename(columns={cohort_col: "treat_month"}))
     df = wide.merge(meta, on=["country", "month"], how="left")
     df["time"] = df["month"].map(midx)
     df["cohort"] = df["treat_month"].map(lambda m: midx.get(m, np.nan))
@@ -111,6 +119,7 @@ def cs_manual(df: pd.DataFrame, ycol: str, emin=-24, emax=12,
 
     rng = np.random.default_rng(RNG_SEED)
     boot = {e: [] for e in point}
+    post_boot = []
     countries = list(d.index)
     for _ in range(n_boot):
         sample = rng.choice(countries, size=len(countries), replace=True)
@@ -123,6 +132,9 @@ def cs_manual(df: pd.DataFrame, ycol: str, emin=-24, emax=12,
         for e in point:
             if e in agg:
                 boot[e].append(agg[e])
+        rep_post = [agg[e] for e in agg if 0 <= e <= 12]
+        if rep_post:
+            post_boot.append(float(np.mean(rep_post)))
 
     rows = []
     for e in sorted(point):
@@ -132,12 +144,14 @@ def cs_manual(df: pd.DataFrame, ycol: str, emin=-24, emax=12,
         rows.append({"rel_month": e, "att": point[e], "ci_lo": lo, "ci_hi": hi,
                      "n_boot_effective": len(bs)})
     res = pd.DataFrame(rows)
-
-    post = res[res["rel_month"] >= 0]
+    post = res[res["rel_month"].between(0, 12)]
     overall = {"att_overall": float(post["att"].mean()) if len(post) else np.nan,
+               "att_overall_se": (float(np.std(post_boot, ddof=1))
+                                  if len(post_boot) >= 100 else None),
                "estimator": "cs_manual (control = never + not-yet-treated, "
-                            "cohort-size weights, country block bootstrap "
-                            f"{n_boot} reps, seed {RNG_SEED})"}
+                            "base period g-1 [universal], cohort-size weights; "
+                            "overall = mean event ATT e in [0,12]; country "
+                            f"block bootstrap {n_boot} reps, seed {RNG_SEED})"}
     return res, overall
 
 
@@ -168,7 +182,10 @@ def cs_estimate(df: pd.DataFrame, ycol: str):
         from differences import ATTgt
         data = df[["country", "time", ycol, "cohort"]].dropna(subset=[ycol]).copy()
         data = data.set_index(["country", "time"])
-        att = ATTgt(data=data, cohort_column="cohort")
+        # base_period='universal' (g-1 base) to mirror cs_manual, so the two
+        # code paths stay comparable
+        att = ATTgt(data=data, cohort_column="cohort",
+                    base_period="universal")
         att.fit(formula=ycol, control_group="not_yet_treated",
                 progress_bar=False)
         ev = att.aggregate("event")
@@ -189,14 +206,24 @@ def cs_estimate(df: pd.DataFrame, ycol: str):
         res["ci_hi"] = hi.astype(float).to_numpy() if hi is not None else np.nan
         res = res[res["rel_month"].between(-24, 12)].reset_index(drop=True)
 
+        # headline overall = mean of event-time ATTs over e in [0,12] — the
+        # window shown in the figures and the one cs_manual uses, so the
+        # number cannot change if the fallback path runs instead. The
+        # package's own overall (all attainable post horizons) is kept as a
+        # secondary field.
+        post = res[res["rel_month"].between(0, 12)]
         ov = att.aggregate("event", overall=True)
         ov_att = col_by_leaf(ov, "att")
         ov_se = col_by_leaf(ov, "std_error")
         overall = {
-            "att_overall": float(ov_att.iloc[0]) if ov_att is not None else np.nan,
+            "att_overall": float(post["att"].mean()) if len(post) else np.nan,
             "att_overall_se": float(ov_se.iloc[0]) if ov_se is not None else np.nan,
+            "att_overall_full_horizon": (float(ov_att.iloc[0])
+                                         if ov_att is not None else np.nan),
             "estimator": "differences.ATTgt (control_group=not_yet_treated, "
-                         "analytic SEs, event aggregation)"}
+                         "base_period=universal, analytic SEs; overall = mean "
+                         "event ATT e in [0,12]; SE is the package's full-"
+                         "horizon overall SE, reported as approximation)"}
         return res, overall
     except Exception as e:
         print(f"`differences` failed ({type(e).__name__}: {e}) — "

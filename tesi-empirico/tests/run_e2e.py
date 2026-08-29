@@ -226,6 +226,39 @@ def main():
         if not cond:
             failures.append(name)
 
+    # --- unit checks for review-driven rules (parser, keywords) ---
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "clf", ROOT / "src" / "03_classify.py")
+    clf = importlib.util.module_from_spec(spec)
+    sys.path.insert(0, str(ROOT / "src"))
+    spec.loader.exec_module(clf)
+    from ted_common import fold_text
+    check("V1: '500.000' parses as 500000 (dot-grouped)",
+          clf._parse_number_string("500.000") == 500000.0)
+    check("V1: '1.234.567,89' parses as 1234567.89",
+          clf._parse_number_string("1.234.567,89") == 1234567.89)
+    check("V1: '1234.56' parses as 1234.56",
+          clf._parse_number_string("1234.56") == 1234.56)
+    check("V1: lot list sums to procedure total",
+          clf.scalar_value([100000, 200000, 300000]) == 600000.0)
+    check("V3: multicurrency -> NaN",
+          clf.resolve_value([100, 200], ["EUR", "SEK"]) == (None, None, True))
+    check("KW: ALL-CAPS 'SOC. COOP.' is not a SOC",
+          clf.keyword_hits(fold_text(
+              "AFFIDAMENTO SERVIZI INFORMATICI ALLA SOC. COOP. ALFA")) == [])
+    check("KW: mixed-case SOC still matches",
+          "SOC" in clf.keyword_hits(fold_text("Servizi SOC h24 per l'ente")))
+    check("KW: Spanish 'vulnerabilidades' matches",
+          "vulnerabili" in clf.keyword_hits(fold_text(
+              "Gestion de vulnerabilidades de los sistemas")))
+    check("KW: 'securite du site' does NOT match",
+          clf.keyword_hits(fold_text(
+              "Maintenance et sécurité du site internet de la ville")) == [])
+    check("KW: 'audit security' does not hit 'it security'",
+          clf.keyword_hits(fold_text(
+              "Audit security and compliance software")) == [])
+
     rc, _ = run_step("03_classify.py")
     check("03 classify exits 0", rc == 0)
     cls = pd.read_parquet(TMP_OUT / "notices_classified.parquet")

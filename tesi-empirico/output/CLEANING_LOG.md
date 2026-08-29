@@ -28,9 +28,13 @@ McCue & Boykin 2018).
   direct-award pre-notices, and unmappable types stay in the file flagged
   `include_in_counts=False` (composition logged per run).
 - **D3** Probable republications — same (country, class, folded buyer, folded
-  title, month) — keep first, drop rest. Addresses cross-form duplication
-  (Prier et al.); risk: over-deletion of genuinely identical monthly lots
-  (count logged; disable with `--keep-republications` for robustness).
+  title, month, amount) — keep first, drop rest. Addresses cross-form
+  duplication (Prier et al.). Guards: notices with an EMPTY buyer or title
+  never enter the dedup (an empty key would collapse unrelated notices; a
+  warning is logged when buyer coverage is poor), and the amount in the key
+  lets same-titled lots with different values survive. Residual risk:
+  identical same-value lots collapse (counts and key-groups logged; disable
+  with `--keep-republications` for robustness).
 - **C1** `cyber_strict` = any CPV prefix 728 (72800000 computer audit &
   testing + children). CPV-only.
 - **C2** `cyber_broad` = not strict, any CPV 725*/722* AND ≥1 cyber keyword in
@@ -44,12 +48,16 @@ McCue & Boykin 2018).
   physical-safety trap, identified during thesis work.
 - **C5** Notices with no parsable CPV: classified `other`, never counted as
   cyber/ICT (share logged).
-- **V1** Values: `estimated-value` for tenders, `total-value` for awards
+- **V1** Values: estimated value for tenders (field `estimated-value-glo`
+  preferred, `estimated-value` fallback), `total-value` for awards
   (estimated as fallback for awards, flagged `value_source`). Unparseable →
-  NaN, never imputed. When a value field carries multiple amounts (per-lot
-  breakdowns), the MAXIMUM is taken as the procedure-level amount — the
-  global/total value is normally the largest reported figure; risk of
-  undercounting multi-lot totals is accepted and noted here.
+  NaN, never imputed. Shape rules: a LIST of amounts is a per-lot breakdown
+  and is SUMMED to the procedure total; a dict wraps a single amount (max
+  over leaves). Locale-formatted strings are parsed explicitly
+  ('500.000'→500000, '1.234.567,89'→1234567.89); ambiguous strings → NaN.
+- **V3** A value field mixing several currencies cannot be converted
+  coherently: amount and currency are both set NaN, `value_source =
+  multicurrency_dropped`, count logged per run.
 - **V2** Panel value totals are 0 only for cells with zero notices; cells
   with notices but no parseable value get NaN totals (missing ≠ zero
   spending). `value_missing_share` reports per-cell coverage.
@@ -70,7 +78,12 @@ McCue & Boykin 2018).
 - **T1** Treatment dates = national entry into force provided by the author
   (verified upstream). BE: month 2024-10, day tbd → 2024-10-18 placeholder
   (irrelevant at monthly granularity). CZ and EE have dates but are outside
-  the study's country sample (`in_default_sample=false`).
+  the study's country sample (`in_default_sample=false`). Robustness: the
+  panel also carries `treat_month_alt` (entry into force after the 15th →
+  cohort shifted to the next month, since up to ~3 pre-treatment weeks are
+  otherwise counted as treated in month g: IT 16th, LT/BE 18th, SE 15th);
+  estimators use it when env `TESI_ALT_COHORT=1` — report both in the
+  thesis if they diverge.
 
 ### Known limitations accepted (not "cleaned")
 - TED = above-threshold (+ voluntary) procurement only.

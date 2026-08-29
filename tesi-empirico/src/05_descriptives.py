@@ -4,8 +4,10 @@ Definitions used everywhere downstream:
 - cyber (broad total) = cyber_strict + cyber_broad rows
 - ict72 total         = cyber_strict + cyber_broad + ict_generic
 - cyber share         = cyber / ict72 (NaN when ict72 == 0 or data missing)
-Counts refer to TENDERS (competition notices); award counts and values are
-reported in the tables.
+Counts refer to TENDERS (competition notices). series_country_month.csv also
+carries award counts, estimated/awarded value totals (nominal + real 2021)
+and the strict-cyber monthly medians; desc_by_country.csv summarizes values
+per country (median column = median across monthly medians, strict cyber).
 
 Figures (output/figs/, PNG 300 dpi, English labels):
   fig01  n cyber tenders per country (small multiples) + treatment/eForms lines
@@ -37,13 +39,19 @@ def load_series() -> pd.DataFrame:
     panel = pd.read_csv(OUTPUT_DIR / "panel_monthly.csv")
     wide = panel.pivot_table(index=["country", "month"], columns="category",
                              values=["n_tenders", "n_awards", "est_total_eur",
-                                     "est_total_eur_real"],
-                             aggfunc="first")
+                                     "est_total_eur_real", "est_median_eur",
+                                     "awd_total_eur", "awd_total_eur_real",
+                                     "awd_median_eur"],
+                             aggfunc="first", dropna=False)
     wide.columns = [f"{a}__{b}" for a, b in wide.columns]
     wide = wide.reset_index()
 
     def s(col, cats):
         cols = [f"{col}__{c}" for c in cats if f"{col}__{c}" in wide.columns]
+        if len(cols) < len(cats):
+            # a value column entirely absent must surface as NaN, never as an
+            # empty-sum 0.0 (that would fabricate zeros)
+            return pd.Series(np.nan, index=wide.index)
         return wide[cols].sum(axis=1, min_count=len(cols))
 
     wide["n_cyber"] = s("n_tenders", ["cyber_strict", "cyber_broad"])
@@ -54,6 +62,12 @@ def load_series() -> pd.DataFrame:
                                    wide["n_cyber"] / wide["n_ict72"], np.nan)
     wide["v_cyber_real"] = s("est_total_eur_real", ["cyber_strict", "cyber_broad"])
     wide["v_cyber_nom"] = s("est_total_eur", ["cyber_strict", "cyber_broad"])
+    wide["v_cyber_awd"] = s("awd_total_eur", ["cyber_strict", "cyber_broad"])
+    wide["v_cyber_awd_real"] = s("awd_total_eur_real",
+                                 ["cyber_strict", "cyber_broad"])
+    for med in ["est_median_eur", "awd_median_eur"]:
+        col = f"{med}__cyber_strict"
+        wide[f"cyber_strict_{med}"] = wide[col] if col in wide.columns else np.nan
 
     meta = panel[["country", "month", "group", "treat_month", "treated",
                   "rel_month", "post_eforms"]].drop_duplicates()
@@ -137,7 +151,9 @@ def main():
                     "share", "fig02_cyber_share_by_country.png")
     group_means(df, "fig03_group_means.png")
 
-    use_real = df["v_cyber_real"].notna().any()
+    # 'real values available' means a POSITIVE deflated amount exists —
+    # structural zeros from empty cells are not evidence of deflation
+    use_real = bool((df["v_cyber_real"] > 0).any())
     small_multiples(df, "v_cyber_real" if use_real else "v_cyber_nom",
                     "Estimated value of cyber tenders per month "
                     + ("(EUR millions, real 2021)" if use_real
@@ -152,6 +168,11 @@ def main():
                  cyber_strict_total=("n_cyber_strict", "sum"),
                  ict72_tenders_total=("n_ict72", "sum"),
                  mean_cyber_share=("cyber_share", "mean"),
+                 cyber_est_value_eur=("v_cyber_nom", "sum"),
+                 cyber_est_value_eur_real=("v_cyber_real", "sum"),
+                 cyber_awd_value_eur=("v_cyber_awd", "sum"),
+                 median_est_value_strict_eur=("cyber_strict_est_median_eur",
+                                              "median"),
                  group=("group", "first"),
                  treat_month=("treat_month", "first"))
             .reset_index())

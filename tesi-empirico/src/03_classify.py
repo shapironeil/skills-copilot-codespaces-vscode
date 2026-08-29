@@ -54,8 +54,8 @@ FORM_TYPE_MAP = {
     "bri": "other_excluded",
 }
 NOTICE_TYPE_PREFIX_MAP = [
-    ("pin", "planning"), ("cn", "tender"), ("can", "award"),
-    ("veat", "award_direct_pre"), ("corr", "modification"),
+    ("pin", "planning"), ("can-modif", "modification"), ("cn", "tender"),
+    ("can", "award"), ("veat", "award_direct_pre"), ("corr", "modification"),
 ]
 COUNTED_CLASSES = {"tender", "award"}
 
@@ -88,7 +88,10 @@ def keyword_hits(title_folded: str) -> list[str]:
     hits = [s for s in SUBS if s in low]
     if WORD_RE:
         hits += [m.group(0).lower() for m in WORD_RE.finditer(title_folded)]
-    if ACRO_RE:
+    # acronym protection relies on case, and ALL-CAPS titles (common on TED)
+    # make every word look like an acronym ('SOC. COOP.', 'CERT.' ...): match
+    # acronyms only when the title carries lowercase context
+    if ACRO_RE and any(ch.islower() for ch in title_folded):
         hits += [m.group(0) for m in ACRO_RE.finditer(title_folded)]
     return sorted(set(hits))
 
@@ -148,22 +151,49 @@ def multilingual_text(raw) -> tuple[str, str]:
     return str(raw), str(raw)
 
 
+def _parse_number_string(s: str):
+    """Parse locale-formatted amount strings without corrupting magnitudes:
+    '500.000' -> 500000 (dot-grouped integer, NOT 500.0), '1.234.567,89' and
+    '1,234,567.89' -> 1234567.89, '1234.56' -> 1234.56. Genuinely ambiguous
+    strings return None (NaN) rather than a misparse."""
+    s = s.strip().replace(" ", "").replace(" ", "")
+    if not s or not re.fullmatch(r"[\d.,]+", s):
+        return None
+    has_dot, has_com = "." in s, "," in s
+    if has_dot and has_com:
+        last = max(s.rfind("."), s.rfind(","))
+        intpart = re.sub(r"[.,]", "", s[:last])
+        dec = s[last + 1:]
+        if not intpart.isdigit() or not dec.isdigit():
+            return None
+        return float(f"{intpart}.{dec}")
+    if not (has_dot or has_com):
+        return float(s)
+    sep = "." if has_dot else ","
+    parts = s.split(sep)
+    if any(not p.isdigit() for p in parts) or not parts[0]:
+        return None
+    if len(parts) == 2 and 1 <= len(parts[1]) <= 2:
+        return float(f"{parts[0]}.{parts[1]}")
+    if all(len(p) == 3 for p in parts[1:]) and len(parts[0]) <= 3:
+        return float("".join(parts))  # grouped integer
+    return None
+
+
 def scalar_value(raw):
-    """Extract a single numeric amount from whatever shape the API returns."""
-    if raw is None:
+    """Extract a numeric amount from whatever shape the API returns.
+    Lists are per-lot breakdowns -> SUM (the procedure total); dicts wrap a
+    single amount ({'value': x}, currency-keyed, ...) -> max over leaves."""
+    if raw is None or isinstance(raw, bool):
         return None
     if isinstance(raw, (int, float)):
         return float(raw)
     if isinstance(raw, str):
-        s = raw.replace(" ", "").replace(",", ".")
-        try:
-            return float(s)
-        except ValueError:
-            return None
+        return _parse_number_string(raw)
     if isinstance(raw, list):
         vals = [scalar_value(x) for x in raw]
         vals = [v for v in vals if v is not None]
-        return max(vals) if vals else None  # lots → total is the max/global
+        return sum(vals) if vals else None
     if isinstance(raw, dict):
         vals = [scalar_value(v) for v in raw.values()]
         vals = [v for v in vals if v is not None]
@@ -171,22 +201,36 @@ def scalar_value(raw):
     return None
 
 
-def scalar_currency(raw):
-    if raw is None:
-        return None
+def currency_set(raw, acc=None) -> set:
+    """All distinct 3-letter currency codes present in the field."""
+    if acc is None:
+        acc = set()
     if isinstance(raw, str):
         s = raw.strip().upper()
-        return s if re.fullmatch(r"[A-Z]{3}", s) else None
-    if isinstance(raw, list):
+        if re.fullmatch(r"[A-Z]{3}", s):
+            acc.add(s)
+    elif isinstance(raw, list):
         for x in raw:
-            c = scalar_currency(x)
-            if c:
-                return c
-    if isinstance(raw, dict):
+            currency_set(x, acc)
+    elif isinstance(raw, dict):
         for v in raw.values():
-            c = scalar_currency(v)
-            if c:
-                return c
+            currency_set(v, acc)
+    return acc
+
+
+def resolve_value(raw_amount, raw_cur):
+    """(amount, currency, is_multicurrency). A field mixing several
+    currencies cannot be converted coherently -> (None, None, True)."""
+    curs = currency_set(raw_cur)
+    if len(curs) > 1:
+        return None, None, True
+    return scalar_value(raw_amount), (next(iter(curs)) if curs else None), False
+
+
+def pick_field(n: dict, names: list[str]):
+    for k in names:
+        if n.get(k) is not None:
+            return n.get(k)
     return None
 
 
@@ -241,6 +285,7 @@ def main():
         sys.exit(f"no raw files under {raw_dir} — run 01_extract_ted.py first")
 
     rows = []
+    n_multicur = 0
     for path in files:
         with gzip.open(path, "rt", encoding="utf-8") as f:
             for line in f:
@@ -256,16 +301,24 @@ def main():
                 folded_title = fold_text(title_all)
                 hits = keyword_hits(folded_title)
                 cat = classify_cpv(cpvs, bool(hits))
-                est_v = scalar_value(n.get("estimated-value"))
-                est_c = scalar_currency(n.get("estimated-value-cur"))
-                tot_v = scalar_value(n.get("total-value"))
-                tot_c = scalar_currency(n.get("total-value-cur"))
+                est_v, est_c, est_multi = resolve_value(
+                    pick_field(n, ["estimated-value-glo", "estimated-value"]),
+                    pick_field(n, ["estimated-value-cur-glo",
+                                   "estimated-value-cur"]))
+                tot_v, tot_c, tot_multi = resolve_value(
+                    n.get("total-value"), n.get("total-value-cur"))
                 if cls == "award":
                     amount, currency, vsource = tot_v, tot_c, "awarded"
-                    if amount is None and est_v is not None:
+                    used_multi = tot_multi
+                    if amount is None and not tot_multi and est_v is not None:
                         amount, currency, vsource = est_v, est_c, "estimated_fallback"
+                        used_multi = est_multi
                 else:
                     amount, currency, vsource = est_v, est_c, "estimated"
+                    used_multi = est_multi
+                if used_multi:
+                    vsource = "multicurrency_dropped"
+                    n_multicur += 1
                 rows.append({
                     "publication_number": pn,
                     "country": n.get("_country_iso2") or path.parent.name,
@@ -301,14 +354,21 @@ def main():
     # D2 handled via include_in_counts (already set); log composition
     class_counts = df["notice_class"].value_counts().to_dict()
 
-    # D3 probable republications among counted notices
-    n_d3 = 0
+    # D3 probable republications among counted notices. Guards: notices with
+    # an EMPTY buyer or title never enter the dedup (an empty fold-key would
+    # collapse unrelated notices), and value_amount is part of the key so
+    # same-titled lots with different amounts survive.
+    n_d3 = n_d3_groups = 0
+    buyer_empty_share = float(df["buyer_folded"].eq("").mean()) if len(df) else 0.0
     if not args.keep_republications:
         key_cols = ["country", "notice_class", "buyer_folded", "title_folded",
-                    "month"]
-        counted = df["include_in_counts"] & df["title_folded"].ne("")
+                    "month", "value_amount"]
+        counted = (df["include_in_counts"] & df["title_folded"].ne("")
+                   & df["buyer_folded"].ne(""))
         rep_mask = counted & df.duplicated(key_cols)
+        dup_all = counted & df.duplicated(key_cols, keep=False)
         n_d3 = int(rep_mask.sum())
+        n_d3_groups = int(dup_all.sum()) - n_d3
         df = df[~rep_mask].copy()
 
     df = df.drop(columns=["buyer_folded", "title_folded"])
@@ -317,14 +377,19 @@ def main():
     df.to_csv(out.with_suffix(".csv.gz"), index=False, compression="gzip")
 
     cats = df[df["include_in_counts"]]["category"].value_counts().to_dict()
+    n_no_cpv = int(df["cpv_all"].eq("").sum())
     print(f"notices parsed: {n0}")
     print(f"D1 exact publication-number dupes dropped: {n_d1}")
     print(f"notice classes: {class_counts}")
-    print(f"D3 probable republications dropped: {n_d3}")
+    print(f"D3 probable republications dropped: {n_d3} "
+          f"(in {n_d3_groups} key-groups; buyer empty share "
+          f"{buyer_empty_share:.1%})")
     print(f"categories (counted notices): {cats}")
+    print(f"C5 notices with no parsable CPV: {n_no_cpv}")
     n_value = df[df['include_in_counts']]['value_amount'].notna().sum()
     n_counted = int(df['include_in_counts'].sum())
-    print(f"counted notices with parseable value: {n_value}/{n_counted}")
+    print(f"counted notices with parseable value: {n_value}/{n_counted} "
+          f"(multicurrency dropped: {n_multicur})")
 
     log_cleaning("Classification",
                  f"parsed {n0} raw notices. D1: dropped {n_d1} exact "
@@ -332,10 +397,19 @@ def main():
                  f"counts = {sorted(COUNTED_CLASSES)}; full composition "
                  f"{class_counts} (planning/modification/unknown excluded from "
                  f"counts, retained in file). D3: dropped {n_d3} probable "
-                 f"republications (same country+class+buyer+title+month). "
-                 f"Categories among counted notices: {cats}. Value parseable "
-                 f"for {n_value}/{n_counted} counted notices; missing values "
-                 f"stay NaN (V1).")
+                 f"republications in {n_d3_groups} key-groups (same country+"
+                 f"class+buyer+title+month+amount; empty buyer/title excluded "
+                 f"from dedup; buyer missing for {buyer_empty_share:.1%} of "
+                 f"notices). C5: {n_no_cpv} notices with no parsable CPV "
+                 f"(classified 'other', never cyber/ICT). Categories among "
+                 f"counted notices: {cats}. Value parseable for "
+                 f"{n_value}/{n_counted} counted notices; {n_multicur} "
+                 f"multicurrency amounts set NaN; missing values stay NaN (V1).")
+    if buyer_empty_share > 0.2:
+        log_cleaning("Classification WARNING",
+                     f"buyer name missing/empty for {buyer_empty_share:.1%} "
+                     f"of notices — D3 republication dedup skipped those, so "
+                     f"residual duplication risk is higher this run.")
 
 
 if __name__ == "__main__":
