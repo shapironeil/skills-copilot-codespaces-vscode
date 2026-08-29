@@ -234,7 +234,13 @@ def write_limits():
          "- eForms cutover 2023-10-25 changes field coverage mid-window "
          "(post_eforms dummy; Oct-2023 mixed month flagged).",
          "- Value fields patchy and unevenly reported across countries; "
-         "counts are the headline outcome."]
+         "counts are the headline outcome.",
+         "- H3 share outcomes (accelerated / negotiated-w/o-call shares) are "
+         "computed on small monthly counts: event-time CS estimates are "
+         "low-power and noisy (verified on synthetic data where a planted "
+         "+0.13 effect yields scattered per-period estimates); interpret "
+         "the H3 tables through the overall ATT and the raw means, not "
+         "single event-time points."]
     (RES_DIR / "LIMITS.md").write_text("\n".join(L), encoding="utf-8")
     print(f"wrote {RES_DIR / 'LIMITS.md'}")
 
