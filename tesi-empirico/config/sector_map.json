@@ -1,0 +1,24 @@
+{
+  "_comment": "Maps the TED buyer main-activity field (eForms authority-activity codes and their common textual variants, matched case-insensitively on the folded string) to sector groups for H4. PROXY WARNING (must be repeated in outputs): NIS2 'newly in scope' status of the buyer is NOT observable on TED; buyer main activity is a coarse proxy for the sector split, and many buyers (municipalities...) report 'general public services' regardless of function. annex: 'I' = sectors of high criticality (NIS2 Annex I), 'II' = other critical sectors (Annex II), null = not attributable. risk_zone: NIS360 risk-zone sectors flagged per the thesis spec: ICT service management, space, public administration, maritime transport, health, gas.",
+  "groups": {
+    "health":       {"patterns": ["health"], "annex": "I", "risk_zone": true},
+    "energy_gas":   {"patterns": ["gas"], "annex": "I", "risk_zone": true},
+    "energy_other": {"patterns": ["electricity", "energy", "oil", "heat"], "annex": "I", "risk_zone": false},
+    "transport_maritime": {"patterns": ["port", "maritime", "water-transport"], "annex": "I", "risk_zone": true},
+    "transport_other": {"patterns": ["rail", "airport", "air-transport", "transport", "urban-transport"], "annex": "I", "risk_zone": false},
+    "water":        {"patterns": ["water"], "annex": "I", "risk_zone": false},
+    "banking_finance": {"patterns": ["bank", "financ", "economic"], "annex": "I", "risk_zone": false},
+    "public_admin": {"patterns": ["gen-pub", "general public", "public administration", "general services"], "annex": "I", "risk_zone": true},
+    "space":        {"patterns": ["space"], "annex": "I", "risk_zone": true},
+    "postal":       {"patterns": ["post"], "annex": "II", "risk_zone": false},
+    "education":    {"patterns": ["education"], "annex": null, "risk_zone": false},
+    "defence":      {"patterns": ["defence", "defense"], "annex": null, "risk_zone": false},
+    "public_order": {"patterns": ["public-order", "safety", "public order"], "annex": null, "risk_zone": false},
+    "environment":  {"patterns": ["environment"], "annex": null, "risk_zone": false},
+    "housing":      {"patterns": ["housing"], "annex": null, "risk_zone": false},
+    "social":       {"patterns": ["social"], "annex": null, "risk_zone": false},
+    "recreation":   {"patterns": ["recreation", "culture", "religion"], "annex": null, "risk_zone": false}
+  },
+  "fallback_group": "other_unknown",
+  "_h4_note": "H4 splits: (a) risk_zone true vs false; (b) annex I vs II - Annex II coverage among public buyers on TED is thin (postal, waste, chemicals, food, digital providers are mostly private), so the annex split is expected to be underpowered; report it with that caveat."
+}

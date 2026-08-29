@@ -106,6 +106,46 @@ def log_cleaning(section: str, message: str) -> None:
         f.write(f"\n- **[{ts}] {section}** — {message}\n")
 
 
+# ------------------------------------------------------- value standardization
+
+def add_eur_real_values(df, amount_col="value_amount", cur_col="value_currency"):
+    """Adds value_eur (Eurostat monthly avg FX) and value_eur_real (country
+    all-items HICP, 2021=100) to a notice-level frame with columns
+    [country, month, amount_col, cur_col]. Missing reference data leaves the
+    corresponding columns NaN (counts never affected). Returns
+    (df, n_unconverted, have_fx, have_hicp)."""
+    import numpy as np
+    import pandas as pd
+
+    fx_path, hicp_path = REF_DIR / "fx_monthly.csv", REF_DIR / "hicp_monthly.csv"
+    have_fx, have_hicp = fx_path.exists(), hicp_path.exists()
+    df = df.copy()
+    df["value_eur"] = np.where(df[cur_col].eq("EUR"), df[amount_col], np.nan)
+    n_unconverted = 0
+    if have_fx:
+        fx = pd.read_csv(fx_path)
+        fx_map = {(r.currency, r.month): r.nac_per_eur for r in fx.itertuples()}
+        needs = df[amount_col].notna() & df[cur_col].notna() & df[cur_col].ne("EUR")
+        for idx in df.index[needs]:
+            rate = fx_map.get((df.at[idx, cur_col], df.at[idx, "month"]))
+            if rate and rate > 0:
+                df.at[idx, "value_eur"] = df.at[idx, amount_col] / rate
+            else:
+                n_unconverted += 1
+    else:
+        n_unconverted = int((df[amount_col].notna() & df[cur_col].notna()
+                             & df[cur_col].ne("EUR")).sum())
+    df["value_eur_real"] = np.nan
+    if have_hicp:
+        hicp = pd.read_csv(hicp_path)
+        h_map = {(r.geo, r.month): r.hicp_2021_100 for r in hicp.itertuples()}
+        for idx in df.index[df["value_eur"].notna()]:
+            h = h_map.get((df.at[idx, "country"], df.at[idx, "month"]))
+            if h and h > 0:
+                df.at[idx, "value_eur_real"] = df.at[idx, "value_eur"] / (h / 100)
+    return df, n_unconverted, have_fx, have_hicp
+
+
 # ---------------------------------------------------------------- HTTP session
 
 def make_session():

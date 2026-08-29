@@ -4,6 +4,8 @@
   "cyber_broad_candidate_prefixes": ["725", "722"],
   "ict_division_prefixes": ["72"],
   "never_cyber_codes": ["79417000"],
+  "placebo_division_prefixes": ["45"],
+  "_placebo_comment": "Division 45 (construction) is the non-ICT placebo universe; extracted separately with 01_extract_ted.py --division 45 and labeled placebo_45 by the classifier.",
   "match_on": "any_cpv",
   "_match_on_comment": "any_cpv = main + supplementary CPV codes are all considered; a notice is cyber_strict if ANY of its CPVs has a cyber_strict prefix. Alternative value 'main_cpv' restricts to the main code (first listed) - robustness option."
 }

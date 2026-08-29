@@ -32,8 +32,10 @@ RAW = TMP_OUT / "ted_raw"
 REF = TMP_OUT / "reference"
 
 SEED = 7
-MONTHS = pd.period_range("2021-01", "2026-08", freq="M").astype(str).tolist()
+MONTHS = pd.period_range("2021-01", "2026-07", freq="M").astype(str).tolist()
 FAILED_CHUNKS = [("FR", "2026-05"), ("FR", "2026-06")]
+ACTIVITIES = ["health", "gen-pub", "education", "transport", "gas", "defence"]
+PROCEDURES = ["open", "restricted", "neg-wo-call", "comp-neg"]
 
 with open(ROOT / "config" / "countries.json", encoding="utf-8") as f:
     CCFG = json.load(f)
@@ -69,7 +71,8 @@ def currency_for(c2: str, month: str) -> str:
 FX = {"HUF": 385.0, "DKK": 7.46, "SEK": 11.2, "CZK": 24.5, "HRK": 7.5345}
 
 
-def make_notice(rng, pn, c2, month, cpv_list, title, form_type):
+def make_notice(rng, pn, c2, month, cpv_list, title, form_type,
+                buyer_max=8, accel_p=0.05):
     day = int(rng.integers(1, 28))
     date = f"{month}-{day:02d}"
     cur = currency_for(c2, month)
@@ -80,11 +83,14 @@ def make_notice(rng, pn, c2, month, cpv_list, title, form_type):
         "publication-date": f"{date}+01:00",
         "buyer-country": SAMPLE[c2]["iso3"],
         "buyer-name": {"mul": [f"SYNTHETIC FIXTURE buyer {c2} "
-                               f"{int(rng.integers(0, 8))} — NOT REAL DATA"]},
+                               f"{int(rng.integers(0, buyer_max))} — NOT REAL DATA"]},
         "notice-title": {"eng": [title]} if rng.random() < 0.5
         else {"und": title},
         "form-type": form_type,
         "classification-cpv": cpv_list if len(cpv_list) > 1 else cpv_list[0],
+        "main-activity": str(rng.choice(ACTIVITIES)),
+        "procedure-type": str(rng.choice(PROCEDURES, p=[0.6, 0.2, 0.1, 0.1])),
+        "procedure-accelerated": "true" if rng.random() < accel_p else "false",
         "_country_iso2": c2,
     }
     if form_type == "result":
@@ -131,23 +137,29 @@ def gen_fixture():
             lam_ict = 40.0 if big else 14.0   # NO treatment effect (placebo)
             notices = []
 
-            def emit(cpvs, title, k):
+            def emit(cpvs, title, k, cyber=False):
                 nonlocal pn_counter, hu_huf_total
                 for _ in range(k):
                     form = rng.choice(["competition", "result", "planning",
                                        "cont-modif"], p=[0.55, 0.35, 0.05, 0.05])
                     # unique suffix: real TED titles rarely collide; keeps the
-                    # D3 rule from firing outside the planted pair
+                    # D3 rule from firing outside the planted pair.
+                    # planted post-treatment dynamics for cyber notices:
+                    # wider buyer pool (extensive margin) + more accelerated
+                    # procedures (H3)
                     n = make_notice(rng, f"{pn_counter:06d}-{month[:4]}", c2,
                                     month, cpvs,
                                     f"{title} — procedura {pn_counter}",
-                                    str(form))
+                                    str(form),
+                                    buyer_max=14 if (cyber and post) else 8,
+                                    accel_p=0.20 if (cyber and post) else 0.05)
                     pn_counter += 1
                     notices.append(n)
 
             emit(["72800000-9", "72000000"], CYBER_TITLES[c2],
-                 int(rng.poisson(lam_strict)))
-            emit(["72500000"], CYBER_TITLES[c2], int(rng.poisson(lam_broadkw)))
+                 int(rng.poisson(lam_strict)), cyber=True)
+            emit(["72500000"], CYBER_TITLES[c2], int(rng.poisson(lam_broadkw)),
+                 cyber=True)
             emit(["72500000"], str(rng.choice(GENERIC_TITLES)),
                  int(rng.poisson(lam_ict * 0.3)))
             emit(["72200000"], str(rng.choice(GENERIC_TITLES)),
@@ -345,6 +357,99 @@ def main():
           f"placebo ATT {att_pl:.3f}, SE {se_pl}")
     check("RESULTS_PRELIMINARY.md written",
           (TMP_OUT / "RESULTS_PRELIMINARY.md").exists())
+
+    # ---------------- §3.7 v2 chain ----------------
+    tmp_base = TMP_OUT.parent
+    rc, _ = run_step("10_build_panels_v2.py")
+    check("10 panels v2 exits 0", rc == 0)
+    p2_path = tmp_base / "data" / "panel_country_month.csv"
+    check("panel_country_month.csv written", p2_path.exists())
+    if p2_path.exists():
+        p2 = pd.read_csv(p2_path)
+        need_cols = ["n_cyber_tenders", "n_new_buyers_cyber", "n_buyers_cyber",
+                     "share_cyber_n", "accel_share_ict", "negwc_share_ict",
+                     "n_modifications_ict", "est_value_cyber_real_win",
+                     "est_value_incumbent_real", "n_placebo45_tenders",
+                     "treat_month", "treat_month_alt", "treat_month_it_alt",
+                     "post_eforms"]
+        check("panel v2 has all §3.7 columns",
+              all(c in p2.columns for c in need_cols),
+              str([c for c in need_cols if c not in p2.columns]))
+        check("panel v2 window frozen at 2026-07",
+              p2["month"].max() == "2026-07", p2["month"].max())
+        check("panel v2 Z1: FR 2026-05 NaN",
+              p2.loc[(p2["country"] == "FR") & (p2["month"] == "2026-05"),
+                     "n_cyber_tenders"].isna().all())
+        check("panel v2 div45 NaN (not extracted)",
+              p2["n_placebo45_tenders"].isna().all())
+        check("panel v2 IT alt cohort = 2026-01",
+              (p2.loc[p2["country"] == "IT", "treat_month_it_alt"] ==
+               "2026-01").all())
+    check("sector panel written",
+          (tmp_base / "data" / "panel_country_sector_month.csv").exists())
+    check("VARIABLES.md written", (tmp_base / "data" / "VARIABLES.md").exists())
+
+    rc, _ = run_step("11_estimation.py")
+    check("11 estimation exits 0", rc == 0)
+    ev = tmp_base / "results" / "tables" / "h1_n_cyber_event.csv"
+    check("h1 event table written", ev.exists())
+    if ev.exists():
+        h1 = pd.read_csv(ev)
+        att_post = h1[h1["rel_month"].between(0, 18)]["att"].mean()
+        att_pre = h1[h1["rel_month"] < 0]["att"].mean()
+        check("h1 recovers planted effect (post-pre > 0.15)",
+              att_post - att_pre > 0.15,
+              f"post {att_post:.3f} pre {att_pre:.3f}")
+    ext = tmp_base / "results" / "tables" / "h1_extensive_new_buyers_event.csv"
+    check("h1 extensive-margin table written", ext.exists())
+    acc = tmp_base / "results" / "tables" / "h3_accel_share_event.csv"
+    if acc.exists():
+        h3 = pd.read_csv(acc)
+        a_post = h3[h3["rel_month"].between(0, 18)]["att"].mean()
+        check("h3 recovers planted accelerated-share effect (post > 0.03)",
+              a_post > 0.03, f"post {a_post:.3f}")
+    else:
+        check("h3 accel table written", False)
+    check("h4 riskzone table written",
+          (tmp_base / "results" / "tables" / "h4_riskzone_event.csv").exists())
+    check("anticipation-3 table written",
+          (tmp_base / "results" / "tables" /
+           "rob_anticipation3_n_cyber_event.csv").exists())
+    check("TWFE/SA robustness table written",
+          (tmp_base / "results" / "tables" / "rob_twfe_sa_n_cyber.csv").exists())
+    check("HonestDiD beta export written",
+          (tmp_base / "results" / "tables" /
+           "sensitivity_honestdid_beta.csv").exists())
+
+    rc, _ = run_step("12_placebos.py")
+    check("12 placebos exits 0", rc == 0)
+    pb = tmp_base / "results" / "tables" / "placebo_b_ict_generic_event.csv"
+    check("placebo (b) table written", pb.exists())
+    if pb.exists():
+        pbd = pd.read_csv(pb)
+        pb_post = pbd[pbd["rel_month"] >= 0]["att"].mean()
+        pb_pre = pbd[pbd["rel_month"] < 0]["att"].mean()
+        check("placebo (b) near zero (|post-pre| < 0.12)",
+              abs(pb_post - pb_pre) < 0.12,
+              f"post {pb_post:.3f} pre {pb_pre:.3f}")
+    check("pretrend tests written",
+          (tmp_base / "results" / "tables" / "pretrend_tests.csv").exists())
+
+    rc, _ = run_step("13_validation_sample.py")
+    check("13 validation draw exits 0", rc == 0)
+    check("validation sample written",
+          (tmp_base / "results" / "validation_sample.csv").exists())
+
+    rc, _ = run_step("14_write_results_v2.py")
+    check("14 results v2 exits 0", rc == 0)
+    check("RESULTS.md written", (tmp_base / "results" / "RESULTS.md").exists())
+    check("LIMITS.md written", (tmp_base / "results" / "LIMITS.md").exists())
+    figs2 = {p.name for p in (tmp_base / "figures").glob("*.png")} \
+        if (tmp_base / "figures").exists() else set()
+    for f in ["h1_n_cyber.png", "h1_value.png", "h2_share_n.png",
+              "h3_accel_share.png", "h4_riskzone.png",
+              "placebo_b_ict_generic.png"]:
+        check(f"figure {f}", f in figs2)
 
     print(f"\n{'=' * 60}\n{len(failures)} failures" +
           (f": {failures}" if failures else " — ALL CHECKS PASSED"))

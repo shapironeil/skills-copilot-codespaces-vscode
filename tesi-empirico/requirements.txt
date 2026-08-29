@@ -7,3 +7,6 @@ statsmodels
 pyarrow
 differences>=0.3.0
 tabulate
+pyfixest>=0.60
+wildboottest
+honestdid

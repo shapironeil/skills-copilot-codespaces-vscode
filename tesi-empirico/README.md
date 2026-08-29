@@ -35,16 +35,28 @@ request/second politeness.
 ## Layout
 
 ```
-config/    countries + NIS2 treatment dates | CPV rules | multilingual cyber
-           keywords (EDITABLE) | API client settings
-src/       01 extract → 02 eurostat → 03 classify → 04 panel →
-           05 descriptives → 06 event study → 07 CS-DiD → 08 placebo →
-           09 results write-up
-output/    ted_raw/ (raw JSONL.gz + manifest) · panel_monthly.csv ·
-           CLEANING_LOG.md (pre-registered rules + run log) · tables/ ·
-           figs/ (PNG 300 dpi, EN labels) · RESULTS_PRELIMINARY.md
+config/    countries + NIS2 treatment dates (Batch A: treatment_batch_a.json,
+           window frozen 2021-01..2026-07) | CPV rules | multilingual cyber
+           keywords (EDITABLE) | sector map (H4 proxy) | API client settings
+src/       01 extract (--division 45 for the construction placebo) →
+           02 eurostat → 03 classify → 04 panel (legacy) →
+           05-09 descriptives/event study/CS/placebo/results (legacy) →
+           10 panels v2 (§3.7) → 11 estimation H1-H4 + robustness
+           (CS anticipation 0/3/6, Sun-Abraham, TWFE + wild cluster
+           bootstrap, HonestDiD) → 12 placebos + pre-trends →
+           13 taxonomy validation sample → 14 RESULTS.md + LIMITS.md
+data/      panel_country_month.csv · panel_country_sector_month.csv ·
+           VARIABLES.md (dictionary)
+results/   RESULTS.md · LIMITS.md · tables/ · validation_sample.csv
+figures/   §3.7 event-study PNGs (EN labels)
+output/    ted_raw/ (+ ted_raw_45/) · CLEANING_LOG.md · legacy outputs
 tests/     synthetic-fixture end-to-end test (no real data; clearly labeled)
 ```
+
+Optional: `RUN_DIV45=1 ./run_all.sh` also extracts CPV division 45
+(construction) for placebo (a) — large volume. The taxonomy validation
+loop: `python3 src/13_validation_sample.py` (draw) → fill
+`results/validation_sample.csv` → `... --score`.
 
 ## Design choices worth knowing
 

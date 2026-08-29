@@ -32,7 +32,23 @@ $PY src/06_event_study.py || echo "event study skipped (insufficient data)"
 $PY src/07_csdid.py       || echo "CS-DiD skipped (insufficient data)"
 $PY src/08_placebo.py     || echo "placebo skipped (insufficient data)"
 
-echo "== [7/7] Results write-up =="
+echo "== [7/7] Results write-up (legacy) =="
 $PY src/09_write_results.py
 
-echo "DONE. See output/RESULTS_PRELIMINARY.md, output/panel_monthly.csv, output/figs/"
+echo "== [§3.7] Panels v2 =="
+if [ "${RUN_DIV45:-0}" = "1" ]; then
+  echo "-- div45 placebo extraction (large volume) --"
+  $PY src/01_extract_ted.py --division 45 || echo "WARNING: div45 extraction failed (placebo a unavailable, logged)"
+  $PY src/03_classify.py || exit 1   # re-classify including div45 raw
+fi
+$PY src/10_build_panels_v2.py || exit 1
+
+echo "== [§3.7] Estimation H1-H4 + robustness + placebos =="
+$PY src/11_estimation.py || echo "estimation skipped (insufficient data)"
+$PY src/12_placebos.py   || echo "placebos skipped"
+$PY src/13_validation_sample.py || echo "validation draw skipped"
+
+echo "== [§3.7] RESULTS.md + LIMITS.md =="
+$PY src/14_write_results_v2.py
+
+echo "DONE. See results/RESULTS.md, results/LIMITS.md, data/, figures/"

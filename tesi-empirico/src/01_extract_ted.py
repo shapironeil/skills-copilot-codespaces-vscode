@@ -40,23 +40,35 @@ from ted_common import (RAW_DIR, load_countries, load_json, log_cleaning,
                         sample_countries)
 
 API_CFG = load_json("api.json")
-MANIFEST_PATH = RAW_DIR / "manifest.json"
+
+# CPV division being extracted this run: '72' (ICT, default) or '45'
+# (construction, the non-ICT placebo). Set from --division in main().
+DIVISION = "72"
+
+
+def raw_base_dir() -> Path:
+    return RAW_DIR if DIVISION == "72" else RAW_DIR.parent / f"ted_raw_{DIVISION}"
+
+
+def manifest_path() -> Path:
+    return raw_base_dir() / "manifest.json"
 
 
 # ----------------------------------------------------------------- manifest
 
 def load_manifest() -> dict:
-    if MANIFEST_PATH.exists():
-        with open(MANIFEST_PATH, encoding="utf-8") as f:
+    if manifest_path().exists():
+        with open(manifest_path(), encoding="utf-8") as f:
             return json.load(f)
     return {"chunks": {}, "meta": {}}
 
 
 def save_manifest(m: dict) -> None:
-    tmp = MANIFEST_PATH.with_suffix(".json.tmp")
+    manifest_path().parent.mkdir(parents=True, exist_ok=True)
+    tmp = manifest_path().with_suffix(".json.tmp")
     with open(tmp, "w", encoding="utf-8") as f:
         json.dump(m, f, indent=1, ensure_ascii=False)
-    tmp.replace(MANIFEST_PATH)
+    tmp.replace(manifest_path())
 
 
 # ----------------------------------------------------------------- API client
@@ -113,7 +125,7 @@ def choose_query_template(client: TedClient, iso3: str) -> tuple[str, bool]:
         total, q = 0, None
         for w in probe_windows:
             d0, d1 = month_bounds(w)
-            q = tpl.format(iso3=iso3, d0=d0, d1=d1, cpv="72")
+            q = tpl.format(iso3=iso3, d0=d0, d1=d1, cpv=DIVISION)
             code, resp = client.post({
                 "query": q,
                 "fields": ["publication-number"],
@@ -178,7 +190,7 @@ def validate_cpv_filtering(client: TedClient, query: str) -> bool:
     ok = 0
     for n in notices:
         cpvs = extract_cpv_list(n.get("classification-cpv"))
-        if any(c.startswith("72") for c in cpvs):
+        if any(c.startswith(DIVISION) for c in cpvs):
             ok += 1
     share = ok / len(notices)
     print(f"  CPV-filter validation: {ok}/{len(notices)} notices carry CPV 72*")
@@ -204,8 +216,9 @@ def hierarchy_expanded(client: TedClient, query: str) -> bool:
     # "some child code appears" alone is NOT evidence of expansion)
     for n in resp.get("notices", []):
         codes = extract_cpv_list(n.get("classification-cpv"))
-        has_child = any(c.startswith("72") and c != "72000000" for c in codes)
-        if has_child and "72000000" not in codes:
+        parent = f"{DIVISION}000000"
+        has_child = any(c.startswith(DIVISION) and c != parent for c in codes)
+        if has_child and parent not in codes:
             return True
     return False
 
@@ -235,7 +248,7 @@ def extract_cpv_list(raw) -> list[str]:
 def probe_fields(client: TedClient, template: str, iso3: str) -> list[str]:
     """Start from the superset and drop fields the API rejects (400)."""
     d0, d1 = month_bounds("2024-03")
-    q = template.format(iso3=iso3, d0=d0, d1=d1, cpv="72")
+    q = template.format(iso3=iso3, d0=d0, d1=d1, cpv=DIVISION)
     fields = list(API_CFG["fields_superset"])
     dropped = []
     for _ in range(len(API_CFG["fields_superset"]) + 2):
@@ -297,7 +310,7 @@ def fetch_range(client: TedClient, template: str, iso3: str, d0: str, d1: str,
                 fields: list[str], page_size: int):
     """Fetch ALL notices for a date range. Returns (notices, total, mode_used).
     Tries ITERATION pagination; falls back to PAGE_NUMBER (15k guard)."""
-    q = template.format(iso3=iso3, d0=d0, d1=d1, cpv="72")
+    q = template.format(iso3=iso3, d0=d0, d1=d1, cpv=DIVISION)
 
     # --- iteration mode
     notices, token, total = [], None, None
@@ -389,7 +402,7 @@ def extract_chunk(client, template, country2, iso3, month, fields, page_size):
                 seen.add(pn)
     dupes = len(all_notices) - len(unique)
 
-    out_dir = RAW_DIR / country2
+    out_dir = raw_base_dir() / country2
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / f"{month}.jsonl.gz"
     stamp = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
@@ -465,7 +478,7 @@ def main():
                             "2024-03", fields, API_CFG["page_size"])
         print(json.dumps(res, indent=2))
         if res["status"] == "complete":
-            p = RAW_DIR / c2 / "2024-03.jsonl.gz"
+            p = raw_base_dir() / c2 / "2024-03.jsonl.gz"
             with gzip.open(p, "rt", encoding="utf-8") as f:
                 first = json.loads(f.readline())
             print("sample notice:")

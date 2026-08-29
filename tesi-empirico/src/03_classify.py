@@ -267,22 +267,45 @@ def classify_cpv(cpvs: list[str], kw_hit: bool) -> str:
         return "cyber_broad"
     if any(c.startswith(tuple(CPV_RULES["ict_division_prefixes"])) for c in cpvs):
         return "ict_generic"
+    if any(c.startswith(tuple(CPV_RULES.get("placebo_division_prefixes", [])))
+           for c in cpvs):
+        return "placebo_45"
     return "other"
+
+
+def procedure_flags(n: dict) -> tuple[str, bool, bool]:
+    """(procedure_type, is_accelerated, is_negotiated_wo_call) for H3."""
+    ptype, _ = multilingual_text(n.get("procedure-type"))
+    ptype = ptype.strip().lower()[:60]
+    acc_raw = n.get("procedure-accelerated")
+    if isinstance(acc_raw, dict):
+        acc_raw = next(iter(acc_raw.values()), None)
+    if isinstance(acc_raw, list):
+        acc_raw = acc_raw[0] if acc_raw else None
+    is_acc = (str(acc_raw).strip().lower() in ("true", "yes", "1")
+              or "accelerat" in ptype)
+    is_nwc = ("neg-wo-call" in ptype or "without prior" in ptype
+              or "senza bando" in ptype or "sans publication" in ptype)
+    return ptype, is_acc, is_nwc
 
 
 # ------------------------------------------------------------------------ main
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--raw-dir", default=str(RAW_DIR))
+    ap.add_argument("--raw-dir", nargs="+", default=None,
+                    help="raw dirs to parse (default: output/ted_raw plus "
+                         "output/ted_raw_45 when present)")
     ap.add_argument("--out", default=str(OUTPUT_DIR / "notices_classified"))
     ap.add_argument("--keep-republications", action="store_true")
     args = ap.parse_args()
 
-    raw_dir = Path(args.raw_dir)
-    files = sorted(raw_dir.glob("*/*.jsonl.gz"))
+    raw_dirs = ([Path(d) for d in args.raw_dir] if args.raw_dir else
+                [RAW_DIR] + ([RAW_DIR.parent / "ted_raw_45"]
+                             if (RAW_DIR.parent / "ted_raw_45").exists() else []))
+    files = [p for d in raw_dirs for p in sorted(d.glob("*/*.jsonl.gz"))]
     if not files:
-        sys.exit(f"no raw files under {raw_dir} — run 01_extract_ted.py first")
+        sys.exit(f"no raw files under {raw_dirs} — run 01_extract_ted.py first")
 
     rows = []
     n_multicur = 0
@@ -301,6 +324,7 @@ def main():
                 folded_title = fold_text(title_all)
                 hits = keyword_hits(folded_title)
                 cat = classify_cpv(cpvs, bool(hits))
+                ptype, is_acc, is_nwc = procedure_flags(n)
                 est_v, est_c, est_multi = resolve_value(
                     pick_field(n, ["estimated-value-glo", "estimated-value"]),
                     pick_field(n, ["estimated-value-cur-glo",
@@ -334,6 +358,9 @@ def main():
                     "buyer_name": buyer_disp[:300],
                     "main_activity": activity_disp[:120],
                     "contract_nature": nature_disp[:60],
+                    "procedure_type": ptype,
+                    "is_accelerated": is_acc,
+                    "is_neg_wo_call": is_nwc,
                     "buyer_folded": fold_text(buyer_disp).lower()[:300],
                     "title_folded": folded_title.lower()[:500],
                     "value_amount": amount,
@@ -371,7 +398,11 @@ def main():
         n_d3_groups = int(dup_all.sum()) - n_d3
         df = df[~rep_mask].copy()
 
-    df = df.drop(columns=["buyer_folded", "title_folded"])
+    # buyer_folded doubles as buyer_id: the only buyer identifier TED exposes
+    # consistently is the name — a proxy (renames/spelling variants split one
+    # buyer), documented in LIMITS.md
+    df = df.rename(columns={"buyer_folded": "buyer_id"})
+    df = df.drop(columns=["title_folded"])
     out = Path(args.out)
     df.to_parquet(out.with_suffix(".parquet"), index=False)
     df.to_csv(out.with_suffix(".csv.gz"), index=False, compression="gzip")

@@ -1,6 +1,7 @@
 {
   "_comment": "Sample countries for NIS2 procurement study. treatment_date = entry into force of national NIS2 transposition law (verified by author; passed to me as given). 'never' = not transposed within study window (through 2026-08). BE day was 'tbd' in spec: 2024-10-18 used (EU transposition deadline); only the month matters for the monthly panel - see CLEANING_LOG. CZ and EE have verified dates but were NOT in the country sample list; included here with in_default_sample=false. HR used HRK until 2022-12-31 (euro adoption 2023-01-01).",
-  "study_window": {"start": "2021-01", "end": "2026-08"},
+  "study_window": {"start": "2021-01", "end": "2026-07",
+                   "_frozen_note": "window frozen at 2026-07: August 2026 is a partial month and is excluded by design (see config/treatment_batch_a.json)"},
   "priority_subset": ["IT", "LT", "HR", "DE", "ES", "FR"],
   "countries": {
     "HR": {"iso3": "HRV", "name": "Croatia",  "currencies": ["HRK", "EUR"], "treatment_date": "2024-02-15", "group": "early",   "in_default_sample": true},

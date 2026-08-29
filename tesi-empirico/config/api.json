@@ -25,6 +25,8 @@
     "notice-type",
     "form-type",
     "contract-nature",
+    "procedure-type",
+    "procedure-accelerated",
     "classification-cpv",
     "notice-title",
     "total-value",
