@@ -123,3 +123,5 @@ McCue & Boykin 2018).
 - **[2026-08-30 18:16 UTC] Panel v2** — built country×month (938 rows; 0 country-months NaN per Z1) and country×sector×month (16884 rows). Window frozen 2021-01..2026-07. FX/HICP available: False/False; 0 amounts unconverted. Buyer id = folded buyer name (proxy); cyber notices with empty buyer: 0.0% (excluded from buyer counts). div45 placebo: NOT extracted (column NaN).
 
 - **[2026-08-30 18:17 UTC] Placebos** — division 45 NOT extracted: placebo (a) not estimable this run (run 01_extract_ted.py --division 45)
+
+- **[2026-08-30 18:46 UTC] Estimation v2** — H1-H4 + robustness run on data/panel_country_month.csv; 11 treated countries; outputs in results/tables and figures/. HonestDiD: see table

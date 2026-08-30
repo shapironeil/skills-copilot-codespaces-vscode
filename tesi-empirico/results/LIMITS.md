@@ -1,6 +1,6 @@
 # LIMITS — deviations, non-estimable pieces, discretionary choices
 
-_Updated 2026-08-30 18:17 UTC by src/14_write_results_v2.py._
+_Updated 2026-08-30 18:46 UTC by src/14_write_results_v2.py._
 
 ## Data availability
 - Real TED data present.

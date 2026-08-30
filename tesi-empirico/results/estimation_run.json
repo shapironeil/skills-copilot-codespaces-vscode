@@ -1,0 +1,223 @@
+{
+ "specs": [
+  {
+   "label": "H1 n cyber tenders",
+   "ycol": "n_cyber_tenders",
+   "log": true,
+   "anticipation": 0,
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=0)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:h1_n_cyber",
+   "cohort": "table:h1_n_cyber",
+   "att_overall": 0.05852371386961884,
+   "att_overall_se": 0.20104708912019414
+  },
+  {
+   "label": "H1 value (est_value_cyber_real)",
+   "ycol": "est_value_cyber_real",
+   "log": true,
+   "anticipation": 0,
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=0)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:h1_value",
+   "cohort": "table:h1_value",
+   "att_overall": 0.0,
+   "att_overall_se": null
+  },
+  {
+   "label": "H1 extensive: new buyers",
+   "ycol": "n_new_buyers_cyber",
+   "log": true,
+   "anticipation": 0,
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=0)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:h1_extensive_new_buyers",
+   "cohort": "table:h1_extensive_new_buyers",
+   "att_overall": 0.09699240729589113,
+   "att_overall_se": 0.1596753877741333
+  },
+  {
+   "label": "H1 intensive",
+   "ycol": "est_value_incumbent_real",
+   "log": true,
+   "anticipation": 0,
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=0)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:h1_intensive_incumbent_value",
+   "cohort": "table:h1_intensive_incumbent_value",
+   "att_overall": 0.0,
+   "att_overall_se": null
+  },
+  {
+   "label": "H2 share (counts)",
+   "ycol": "share_cyber_n",
+   "log": false,
+   "anticipation": 0,
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=0)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:h2_share_n",
+   "cohort": "table:h2_share_n",
+   "att_overall": 0.0019093007773858758,
+   "att_overall_se": 0.007138042120871233
+  },
+  {
+   "label": "H2 share (value)",
+   "ycol": "share_cyber_value",
+   "log": false,
+   "anticipation": 0,
+   "estimator": "UNAVAILABLE (outcome has no observations this run)",
+   "event": null,
+   "att_overall": NaN
+  },
+  {
+   "label": "H3 accelerated share",
+   "ycol": "accel_share_ict",
+   "log": false,
+   "anticipation": 0,
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=0)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:h3_accel_share",
+   "cohort": "table:h3_accel_share",
+   "att_overall": 0.0,
+   "att_overall_se": null
+  },
+  {
+   "label": "H3 accelerated share (cyber only)",
+   "ycol": "accel_share_cyber",
+   "log": false,
+   "anticipation": 0,
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=0)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:h3_accel_share_cyber",
+   "cohort": "table:h3_accel_share_cyber",
+   "att_overall": 0.0,
+   "att_overall_se": null
+  },
+  {
+   "label": "H3 neg. w/o call",
+   "ycol": "negwc_share_ict",
+   "log": false,
+   "anticipation": 0,
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=0)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:h3_negwc_share",
+   "cohort": "table:h3_negwc_share",
+   "att_overall": 0.0,
+   "att_overall_se": null
+  },
+  {
+   "label": "H3 modifications",
+   "ycol": "n_modifications_ict",
+   "log": true,
+   "anticipation": 0,
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=0)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:h3_modifications",
+   "cohort": "table:h3_modifications",
+   "att_overall": 0.03324622533053678,
+   "att_overall_se": 0.23840320323957503
+  },
+  {
+   "label": "H4 riskzone",
+   "ycol": "n_cyber_tenders",
+   "log": true,
+   "anticipation": 0,
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=0)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:h4_riskzone",
+   "cohort": "table:h4_riskzone",
+   "att_overall": 0.0,
+   "att_overall_se": null
+  },
+  {
+   "label": "H4 nonrisk",
+   "ycol": "n_cyber_tenders",
+   "log": true,
+   "anticipation": 0,
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=0)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:h4_nonrisk",
+   "cohort": "table:h4_nonrisk",
+   "att_overall": 0.05852371386961884,
+   "att_overall_se": 0.20104708912019414
+  },
+  {
+   "label": "H4 annexI",
+   "ycol": "n_cyber_tenders",
+   "log": true,
+   "anticipation": 0,
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=0)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:h4_annexI",
+   "cohort": "table:h4_annexI",
+   "att_overall": 0.0,
+   "att_overall_se": null
+  },
+  {
+   "label": "H4 annexII",
+   "ycol": "n_cyber_tenders",
+   "log": true,
+   "anticipation": 0,
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=0)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:h4_annexII",
+   "cohort": "table:h4_annexII",
+   "att_overall": 0.0,
+   "att_overall_se": null
+  },
+  {
+   "label": "H1 anticipation=3",
+   "ycol": "n_cyber_tenders",
+   "log": true,
+   "anticipation": 3,
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=3)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:rob_anticipation3_n_cyber",
+   "cohort": "table:rob_anticipation3_n_cyber",
+   "att_overall": 0.09947718018189848,
+   "att_overall_se": 0.22041676946700514
+  },
+  {
+   "label": "H1 anticipation=6",
+   "ycol": "n_cyber_tenders",
+   "log": true,
+   "anticipation": 6,
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=6)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:rob_anticipation6_n_cyber",
+   "cohort": "table:rob_anticipation6_n_cyber",
+   "att_overall": -0.02099799952356805,
+   "att_overall_se": 0.21331241847090562
+  },
+  {
+   "label": "H1 cohort=midmonth_shift",
+   "ycol": "n_cyber_tenders",
+   "log": true,
+   "anticipation": 0,
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=0)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:rob_cohort_midmonth_shift",
+   "cohort": "table:rob_cohort_midmonth_shift",
+   "att_overall": 0.07130121210392573,
+   "att_overall_se": 0.16593944191958745
+  },
+  {
+   "label": "H1 cohort=it_reporting_2026",
+   "ycol": "n_cyber_tenders",
+   "log": true,
+   "anticipation": 0,
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=0)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:rob_cohort_it_reporting_2026",
+   "cohort": "table:rob_cohort_it_reporting_2026",
+   "att_overall": 0.07869152586150893,
+   "att_overall_se": 0.1963395735639816
+  },
+  {
+   "label": "honestdid",
+   "note": "see table",
+   "n_pre": 17,
+   "n_post": 19
+  }
+ ]
+}
