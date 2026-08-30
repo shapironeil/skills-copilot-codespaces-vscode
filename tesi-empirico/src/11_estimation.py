@@ -77,6 +77,11 @@ def cs(p, ycol, log=True, anticipation=0, label=""):
     df = df.dropna(subset=["y"])
     out = {"label": label or ycol, "ycol": ycol, "log": log,
            "anticipation": anticipation, "estimator": None}
+    if df.empty:
+        # outcome entirely missing this run (e.g. API rejected value fields)
+        out.update(estimator="UNAVAILABLE (outcome has no observations this run)",
+                   event=None, att_overall=np.nan)
+        return out
     try:
         from differences import ATTgt
         data = df.set_index(["country", "time"])
@@ -124,8 +129,14 @@ def cs(p, ycol, log=True, anticipation=0, label=""):
             out.update(estimator=f"UNAVAILABLE ({type(e).__name__}: {e})",
                        event=None, att_overall=np.nan)
             return out
-        res, overall = cs_manual(df.rename(columns={"y": "yy"}), "yy",
-                                 emin=EV_MIN, emax=EV_MAX)
+        try:
+            res, overall = cs_manual(df.rename(columns={"y": "yy"}), "yy",
+                                     emin=EV_MIN, emax=EV_MAX)
+        except Exception as e2:
+            out.update(estimator=f"UNAVAILABLE ({type(e).__name__}: {e}; "
+                                 f"fallback {type(e2).__name__}: {e2})",
+                       event=None, att_overall=np.nan)
+            return out
         res["se"] = np.nan
         out.update(estimator=overall["estimator"] + f" [fallback: {e}]",
                    event=res, cohort=None,
