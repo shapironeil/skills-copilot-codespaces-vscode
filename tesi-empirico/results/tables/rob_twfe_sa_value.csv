@@ -1,0 +1,2 @@
+twfe_att,twfe_se_crv1,twfe_wildboot_p,sunab_att_post_mean
+0.0,0.0,unavailable: TypingError,unavailable: FactorEvaluationError: Unable to evaluate factor `d_g37_e`. [NameError: `d_g37_e` is not present in the dataset or evaluation context.]

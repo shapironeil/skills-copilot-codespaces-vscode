@@ -1,4 +1,4 @@
-outcome=y_cyber: {'att_overall': 0.0944368113663053, 'att_overall_se': 0.14988070147019447, 'att_overall_full_horizon': -0.0033205771776231327, 'estimator': "differences.ATTgt (control_group=not_yet_treated, base_period=universal, analytic SEs; overall = mean event ATT e in [0,12]; SE is the package's full-horizon overall SE, reported as approximation)"}
+outcome=y_cyber: {'att_overall': 0.08927433516782658, 'att_overall_se': 0.13498301941921664, 'att_overall_full_horizon': -0.02552392430062708, 'estimator': "differences.ATTgt (control_group=not_yet_treated, base_period=universal, analytic SEs; overall = mean event ATT e in [0,12]; SE is the package's full-horizon overall SE, reported as approximation)"}
 
  rel_month       att     ci_lo    ci_hi
        -24  0.372655  0.141015 0.604295
@@ -32,14 +32,14 @@ outcome=y_cyber: {'att_overall': 0.0944368113663053, 'att_overall_se': 0.1498807
          4  0.122601 -0.248110 0.493313
          5  0.154827 -0.148535 0.458190
          6 -0.128882 -0.426637 0.168873
-         7  0.019726 -0.240414 0.279866
-         8  0.421432 -0.002040 0.844904
+         7  0.044803 -0.202174 0.291781
+         8  0.329242 -0.125406 0.783891
          9  0.097312 -0.326561 0.521184
         10  0.077971 -0.340343 0.496284
         11  0.161980 -0.212374 0.536334
         12  0.059273 -0.423265 0.541811
 
-outcome=share_cyber: {'att_overall': 0.0029509230094482888, 'att_overall_se': 0.00478347806245094, 'att_overall_full_horizon': 0.0027972869193225447, 'estimator': "differences.ATTgt (control_group=not_yet_treated, base_period=universal, analytic SEs; overall = mean event ATT e in [0,12]; SE is the package's full-horizon overall SE, reported as approximation)"}
+outcome=share_cyber: {'att_overall': 0.003106215481193036, 'att_overall_se': 0.004987499114993847, 'att_overall_full_horizon': 0.0029319470530234596, 'estimator': "differences.ATTgt (control_group=not_yet_treated, base_period=universal, analytic SEs; overall = mean event ATT e in [0,12]; SE is the package's full-horizon overall SE, reported as approximation)"}
 
  rel_month       att     ci_lo    ci_hi
        -24  0.005808 -0.000457 0.012073
@@ -73,8 +73,8 @@ outcome=share_cyber: {'att_overall': 0.0029509230094482888, 'att_overall_se': 0.
          4  0.003037 -0.012361 0.018436
          5  0.002791 -0.007337 0.012919
          6 -0.002178 -0.011008 0.006652
-         7 -0.001981 -0.010269 0.006307
-         8  0.011799 -0.006355 0.029954
+         7 -0.001074 -0.009364 0.007215
+         8  0.012911 -0.007174 0.032996
          9  0.002277 -0.005315 0.009870
         10 -0.001241 -0.013383 0.010901
         11  0.015707 -0.003222 0.034637

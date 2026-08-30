@@ -1,6 +1,6 @@
 # Preliminary results — NIS2 & cybersecurity procurement (TED)
 
-_Generated 2026-08-30 18:10 UTC by 09_write_results.py. Numbers come only from the pipeline outputs present at generation time._
+_Generated 2026-08-30 18:16 UTC by 09_write_results.py. Numbers come only from the pipeline outputs present at generation time._
 
 ## Extraction status
 
@@ -12,31 +12,31 @@ _Generated 2026-08-30 18:10 UTC by 09_write_results.py. Numbers come only from t
 
 | country   |   months_observed |   cyber_tenders_total |   cyber_strict_total |   ict72_tenders_total |   mean_cyber_share |   cyber_est_value_eur |   cyber_est_value_eur_real |   cyber_awd_value_eur |   median_est_value_strict_eur | group   | treat_month   |
 |:----------|------------------:|----------------------:|---------------------:|----------------------:|-------------------:|----------------------:|---------------------------:|----------------------:|------------------------------:|:--------|:--------------|
-| BE        |                68 |                    33 |                   33 |                  3897 |        0.0080967   |                     0 |                          0 |                     0 |                           nan | early   | 2024-10       |
-| DE        |                68 |                    48 |                   48 |                 16556 |        0.00272468  |                     0 |                          0 |                     0 |                           nan | late    | 2025-12       |
-| DK        |                68 |                    17 |                   17 |                  1353 |        0.0116871   |                     0 |                          0 |                     0 |                           nan | mid     | 2025-07       |
-| ES        |                68 |                    72 |                   72 |                 12359 |        0.00584206  |                     0 |                          0 |                     0 |                           nan | control | nan           |
-| FI        |                68 |                    36 |                   36 |                  3566 |        0.00931338  |                     0 |                          0 |                     0 |                           nan | mid     | 2025-04       |
-| FR        |                68 |                   133 |                  133 |                 12919 |        0.0103981   |                     0 |                          0 |                     0 |                           nan | control | nan           |
-| HR        |                68 |                     4 |                    4 |                  1601 |        0.00143472  |                     0 |                          0 |                     0 |                           nan | early   | 2024-02       |
-| HU        |                68 |                     1 |                    1 |                  1228 |        0.000507099 |                     0 |                          0 |                     0 |                           nan | mid     | 2025-01       |
-| IE        |                68 |                   105 |                  105 |                  3117 |        0.0288514   |                     0 |                          0 |                     0 |                           nan | control | nan           |
-| IT        |                68 |                     3 |                    3 |                  3016 |        0.00133323  |                     0 |                          0 |                     0 |                           nan | early   | 2024-10       |
-| LT        |                68 |                     2 |                    2 |                  3315 |        0.00060024  |                     0 |                          0 |                     0 |                           nan | early   | 2024-10       |
-| LV        |                68 |                     7 |                    7 |                  1071 |        0.00675517  |                     0 |                          0 |                     0 |                           nan | early   | 2024-09       |
-| SE        |                68 |                    22 |                   22 |                  5850 |        0.00370299  |                     0 |                          0 |                     0 |                           nan | late    | 2026-01       |
-| SK        |                68 |                     4 |                    4 |                  1664 |        0.00248966  |                     0 |                          0 |                     0 |                           nan | mid     | 2025-01       |
+| BE        |                67 |                    33 |                   33 |                  3823 |        0.00821755  |                     0 |                          0 |                     0 |                           nan | early   | 2024-10       |
+| DE        |                67 |                    45 |                   45 |                 16218 |        0.00263288  |                     0 |                          0 |                     0 |                           nan | late    | 2025-12       |
+| DK        |                67 |                    17 |                   17 |                  1337 |        0.0118615   |                     0 |                          0 |                     0 |                           nan | mid     | 2025-07       |
+| ES        |                67 |                    72 |                   72 |                 12209 |        0.00592925  |                     0 |                          0 |                     0 |                           nan | control | nan           |
+| FI        |                67 |                    36 |                   36 |                  3511 |        0.00945239  |                     0 |                          0 |                     0 |                           nan | mid     | 2025-04       |
+| FR        |                67 |                   131 |                  131 |                 12797 |        0.0103086   |                     0 |                          0 |                     0 |                           nan | control | nan           |
+| HR        |                67 |                     4 |                    4 |                  1576 |        0.00145613  |                     0 |                          0 |                     0 |                           nan | early   | 2024-02       |
+| HU        |                67 |                     1 |                    1 |                  1214 |        0.000514668 |                     0 |                          0 |                     0 |                           nan | mid     | 2025-01       |
+| IE        |                67 |                   103 |                  103 |                  3053 |        0.0288156   |                     0 |                          0 |                     0 |                           nan | control | nan           |
+| IT        |                67 |                     3 |                    3 |                  2972 |        0.00135312  |                     0 |                          0 |                     0 |                           nan | early   | 2024-10       |
+| LT        |                67 |                     2 |                    2 |                  3262 |        0.000609199 |                     0 |                          0 |                     0 |                           nan | early   | 2024-10       |
+| LV        |                67 |                     7 |                    7 |                  1054 |        0.00685599  |                     0 |                          0 |                     0 |                           nan | early   | 2024-09       |
+| SE        |                67 |                    22 |                   22 |                  5786 |        0.00375826  |                     0 |                          0 |                     0 |                           nan | late    | 2026-01       |
+| SK        |                67 |                     4 |                    4 |                  1624 |        0.00252682  |                     0 |                          0 |                     0 |                           nan | mid     | 2025-01       |
 
 Figures: `figs/fig01`–`fig04`.
 
 ## Raw event study (fig05–fig06)
 
-- mean Δlog(1+n cyber) in t0..t+12: **0.030** (vs -0.010 in t-6..t-1; within-country, demeaned on t-24..t-1)
+- mean Δlog(1+n cyber) in t0..t+12: **0.026** (vs -0.010 in t-6..t-1; within-country, demeaned on t-24..t-1)
 
 ## Callaway–Sant'Anna (fig07)
 
 ```
-outcome=y_cyber: {'att_overall': 0.0944368113663053, 'att_overall_se': 0.14988070147019447, 'att_overall_full_horizon': -0.0033205771776231327, 'estimator': "differences.ATTgt (control_group=not_yet_treated, base_period=universal, analytic SEs; overall = mean event ATT e in [0,12]; SE is the package's full-horizon overall SE, reported as approximation)"}
+outcome=y_cyber: {'att_overall': 0.08927433516782658, 'att_overall_se': 0.13498301941921664, 'att_overall_full_horizon': -0.02552392430062708, 'estimator': "differences.ATTgt (control_group=not_yet_treated, base_period=universal, analytic SEs; overall = mean event ATT e in [0,12]; SE is the package's full-horizon overall SE, reported as approximation)"}
 
  rel_month       att     ci_lo    ci_hi
        -24  0.372655  0.141015 0.604295
@@ -70,14 +70,14 @@ outcome=y_cyber: {'att_overall': 0.0944368113663053, 'att_overall_se': 0.1498807
          4  0.122601 -0.248110 0.493313
          5  0.154827 -0.148535 0.458190
          6 -0.128882 -0.426637 0.168873
-         7  0.019726 -0.240414 0.279866
-         8  0.421432 -0.002040 0.844904
+         7  0.044803 -0.202174 0.291781
+         8  0.329242 -0.125406 0.783891
          9  0.097312 -0.326561 0.521184
         10  0.077971 -0.340343 0.496284
         11  0.161980 -0.212374 0.536334
         12  0.059273 -0.423265 0.541811
 
-outcome=share_cyber: {'att_overall': 0.0029509230094482888, 'att_overall_se': 0.00478347806245094, 'att_overall_full_horizon': 0.0027972869193225447, 'estimator': "differences.ATTgt (control_group=not_yet_treated, base_period=universal, analytic SEs; overall = mean event ATT e in [0,12]; SE is the package's full-horizon overall SE, reported as approximation)"}
+outcome=share_cyber: {'att_overall': 0.003106215481193036, 'att_overall_se': 0.004987499114993847, 'att_overall_full_horizon': 0.0029319470530234596, 'estimator': "differences.ATTgt (control_group=not_yet_treated, base_period=universal, analytic SEs; overall = mean event ATT e in [0,12]; SE is the package's full-horizon overall SE, reported as approximation)"}
 
  rel_month       att     ci_lo    ci_hi
        -24  0.005808 -0.000457 0.012073
@@ -85,12 +85,12 @@ outcome=share_cyber: {'att_overall': 0.0029509230094482888, 'att_overall_se': 0.
        -22  0.005880 -0.001619 0.013379
        -21  0.007245 -0.003303 0.017793
        -20 -0.004219 -0.013493 0.005055
-       -19  0.003
+       -19  0.0037
 ```
 
 ## Placebo — generic ICT (fig08–fig09)
 
-- overall post ATT on log(1+n generic ICT): **-0.039** (should be ≈0 under the cyber-specific hypothesis)
+- overall post ATT on log(1+n generic ICT): **-0.040** (should be ≈0 under the cyber-specific hypothesis)
 
 ## Caveats (read before interpreting ANY number above)
 

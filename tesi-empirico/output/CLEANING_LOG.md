@@ -113,3 +113,13 @@ McCue & Boykin 2018).
 - **[2026-08-30 18:09 UTC] Panel** — built 3808 rows. Z1: 0 country-months set to NaN because raw chunk missing/failed. F1: 0 amounts with unknown currency/rate left NaN. P1: fx_available=False, hicp_available=False — real/converted values UNAVAILABLE this run; counts unaffected. E1: post_eforms=1 from 2023-11; 2023-10 mixed month coded 0 and flagged month_2023_10.
 
 - **[2026-08-30 18:10 UTC] Estimation** — CS-DiD run: estimator 'differences.ATTgt (control_group=not_yet_treated, base_period=universal, analytic SEs; overall = mean event ATT e in [0,12]; SE is the package's full-horizon overall SE, reported as approximation)'; treated=11, never-treated=3.
+
+- **[2026-08-30 18:15 UTC] Classification** — parsed 162279 raw notices. D1: dropped 806 exact publication-number duplicates. D2: notice classes kept for counts = ['award', 'tender']; full composition {'tender': 71512, 'award': 65070, 'modification': 14696, 'planning': 6400, 'award_direct_pre': 3646, 'unknown': 149} (planning/modification/unknown excluded from counts, retained in file). D3: dropped 0 probable republications in 0 key-groups (same country+class+buyer+title+month+amount; empty buyer/title excluded from dedup; buyer missing for 0.0% of notices). C5: 0 notices with no parsable CPV (classified 'other', never cyber/ICT). Categories among counted notices: {'ict_generic': 135628, 'cyber_strict': 954}. Value parseable for 0/136582 counted notices; 0 multicurrency amounts set NaN; missing values stay NaN (V1).
+
+- **[2026-08-30 18:15 UTC] Panel** — built 3752 rows. Z1: 0 country-months set to NaN because raw chunk missing/failed. F1: 0 amounts with unknown currency/rate left NaN. P1: fx_available=False, hicp_available=False — real/converted values UNAVAILABLE this run; counts unaffected. E1: post_eforms=1 from 2023-11; 2023-10 mixed month coded 0 and flagged month_2023_10.
+
+- **[2026-08-30 18:16 UTC] Estimation** — CS-DiD run: estimator 'differences.ATTgt (control_group=not_yet_treated, base_period=universal, analytic SEs; overall = mean event ATT e in [0,12]; SE is the package's full-horizon overall SE, reported as approximation)'; treated=11, never-treated=3.
+
+- **[2026-08-30 18:16 UTC] Panel v2** — built country×month (938 rows; 0 country-months NaN per Z1) and country×sector×month (16884 rows). Window frozen 2021-01..2026-07. FX/HICP available: False/False; 0 amounts unconverted. Buyer id = folded buyer name (proxy); cyber notices with empty buyer: 0.0% (excluded from buyer counts). div45 placebo: NOT extracted (column NaN).
+
+- **[2026-08-30 18:17 UTC] Placebos** — division 45 NOT extracted: placebo (a) not estimable this run (run 01_extract_ted.py --division 45)
