@@ -93,3 +93,23 @@ McCue & Boykin 2018).
   country; analyses of values are secondary to counts.
 
 ## Run log
+
+- **[2026-08-30 17:25 UTC] API probing** — fields rejected by Search API and excluded from extraction: ['notice-title', 'total-value', 'total-value-cur', 'estimated-value-glo', 'estimated-value-cur-glo', 'estimated-value', 'estimated-value-cur', 'main-activity', 'links']. Downstream scripts treat them as missing.
+
+- **[2026-08-30 17:25 UTC] Extraction run** — template='(classification-cpv IN ({cpv}*)) AND buyer-country={iso3} AND publication-date>={d0} AND publication-date<={d1}', server_cpv_filter=True, fields=['publication-number', 'publication-date', 'buyer-country', 'buyer-name', 'notice-type', 'form-type', 'contract-nature', 'classification-cpv'], countries=['HR', 'LV', 'IT', 'LT', 'BE', 'HU', 'SK', 'FI', 'DK', 'DE', 'SE', 'IE', 'ES', 'FR'], window=2021-01..2026-08
+
+- **[2026-08-30 17:25 UTC] API probing** — fields rejected by Search API and excluded from extraction: ['notice-title', 'total-value', 'total-value-cur', 'estimated-value-glo', 'estimated-value-cur-glo', 'estimated-value', 'estimated-value-cur', 'main-activity', 'links']. Downstream scripts treat them as missing.
+
+- **[2026-08-30 17:25 UTC] Extraction run** — template='(classification-cpv IN ({cpv}*)) AND buyer-country={iso3} AND publication-date>={d0} AND publication-date<={d1}', server_cpv_filter=True, fields=['publication-number', 'publication-date', 'buyer-country', 'buyer-name', 'notice-type', 'form-type', 'contract-nature', 'classification-cpv'], countries=['HR', 'LV', 'IT', 'LT', 'BE', 'HU', 'SK', 'FI', 'DK', 'DE', 'SE', 'IE', 'ES', 'FR'], window=2021-01..2026-08
+
+- **[2026-08-30 17:26 UTC] API probing** — fields rejected by Search API and excluded from extraction: ['notice-title', 'total-value', 'total-value-cur', 'estimated-value-glo', 'estimated-value-cur-glo', 'estimated-value', 'estimated-value-cur', 'main-activity', 'links']. Downstream scripts treat them as missing.
+
+- **[2026-08-30 17:26 UTC] Extraction run** — template='(classification-cpv IN ({cpv}*)) AND buyer-country={iso3} AND publication-date>={d0} AND publication-date<={d1}', server_cpv_filter=True, fields=['publication-number', 'publication-date', 'buyer-country', 'buyer-name', 'notice-type', 'form-type', 'contract-nature', 'classification-cpv'], countries=['HR', 'LV', 'IT', 'LT', 'BE', 'HU', 'SK', 'FI', 'DK', 'DE', 'SE', 'IE', 'ES', 'FR'], window=2021-01..2026-08
+
+- **[2026-08-30 18:09 UTC] Extraction run** — completed 952 chunks, failed 0, skipped 0 (2066 API requests). Failed chunks are listed in ted_raw/manifest.json and enter the panel as missing (NaN), never as zeros.
+
+- **[2026-08-30 18:09 UTC] Classification** — parsed 162279 raw notices. D1: dropped 806 exact publication-number duplicates. D2: notice classes kept for counts = ['award', 'tender']; full composition {'tender': 71512, 'award': 65070, 'modification': 14696, 'planning': 6400, 'award_direct_pre': 3646, 'unknown': 149} (planning/modification/unknown excluded from counts, retained in file). D3: dropped 0 probable republications in 0 key-groups (same country+class+buyer+title+month+amount; empty buyer/title excluded from dedup; buyer missing for 0.0% of notices). C5: 0 notices with no parsable CPV (classified 'other', never cyber/ICT). Categories among counted notices: {'ict_generic': 135628, 'cyber_strict': 954}. Value parseable for 0/136582 counted notices; 0 multicurrency amounts set NaN; missing values stay NaN (V1).
+
+- **[2026-08-30 18:09 UTC] Panel** — built 3808 rows. Z1: 0 country-months set to NaN because raw chunk missing/failed. F1: 0 amounts with unknown currency/rate left NaN. P1: fx_available=False, hicp_available=False — real/converted values UNAVAILABLE this run; counts unaffected. E1: post_eforms=1 from 2023-11; 2023-10 mixed month coded 0 and flagged month_2023_10.
+
+- **[2026-08-30 18:10 UTC] Estimation** — CS-DiD run: estimator 'differences.ATTgt (control_group=not_yet_treated, base_period=universal, analytic SEs; overall = mean event ATT e in [0,12]; SE is the package's full-horizon overall SE, reported as approximation)'; treated=11, never-treated=3.

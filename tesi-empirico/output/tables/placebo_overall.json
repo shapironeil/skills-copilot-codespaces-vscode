@@ -1,0 +1,6 @@
+{
+ "att_overall": -0.0385121383799096,
+ "att_overall_se": 0.09275615081592178,
+ "att_overall_full_horizon": 0.0013182327380024045,
+ "estimator": "differences.ATTgt (control_group=not_yet_treated, base_period=universal, analytic SEs; overall = mean event ATT e in [0,12]; SE is the package's full-horizon overall SE, reported as approximation)"
+}
