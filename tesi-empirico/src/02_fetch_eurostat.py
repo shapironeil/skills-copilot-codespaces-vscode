@@ -51,8 +51,14 @@ def main():
     try:
         hicp = fetch_csv(session, "prc_hicp_midx",
                          f"M.I15.CP00.{'+'.join(geos)}")
-        fx = fetch_csv(session, "ert_bil_eur_m",
-                       f"M.{'+'.join(currencies)}.AVG")
+        # key order is freq.statinfo.unit.currency; currencies retired from
+        # the euro (HRK) live only in the historical dataset (unit NAT there)
+        live = [c for c in currencies if c != "HRK"]
+        fx = fetch_csv(session, "ert_bil_eur_m", f"M.AVG.NAC.{'+'.join(live)}")
+        if "HRK" in currencies:
+            fx = pd.concat([fx, fetch_csv(session, "ert_h_eur_m",
+                                          "M.AVG.NAT.HRK")],
+                           ignore_index=True)
     except Exception as e:
         print(f"ERROR: Eurostat unreachable: {type(e).__name__}: {e}\n"
               "If running in a sandboxed environment, allowlist "

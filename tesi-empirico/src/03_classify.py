@@ -234,6 +234,19 @@ def pick_field(n: dict, names: list[str]):
     return None
 
 
+def resolve_value_chain(n: dict, pairs: list[tuple[str, str]]):
+    """First (amount-field, currency-field) pair with a parseable amount wins;
+    amount and currency always come from the same aggregation level (glo /
+    proc / lot / notice) so they can never be mismatched."""
+    for a_f, c_f in pairs:
+        if n.get(a_f) in (None, "", [], {}):
+            continue
+        v, c, multi = resolve_value(n.get(a_f), n.get(c_f))
+        if v is not None or multi:
+            return v, c, multi
+    return None, None, False
+
+
 def notice_class(n) -> str:
     ft = n.get("form-type")
     if isinstance(ft, dict):
@@ -325,12 +338,15 @@ def main():
                 hits = keyword_hits(folded_title)
                 cat = classify_cpv(cpvs, bool(hits))
                 ptype, is_acc, is_nwc = procedure_flags(n)
-                est_v, est_c, est_multi = resolve_value(
-                    pick_field(n, ["estimated-value-glo", "estimated-value"]),
-                    pick_field(n, ["estimated-value-cur-glo",
-                                   "estimated-value-cur"]))
-                tot_v, tot_c, tot_multi = resolve_value(
-                    n.get("total-value"), n.get("total-value-cur"))
+                est_v, est_c, est_multi = resolve_value_chain(n, [
+                    ("estimated-value-glo", "estimated-value-cur-glo"),
+                    ("estimated-value", "estimated-value-cur"),
+                    ("estimated-value-proc", "estimated-value-cur-proc"),
+                    ("estimated-value-lot", "estimated-value-cur-lot")])
+                tot_v, tot_c, tot_multi = resolve_value_chain(n, [
+                    ("total-value", "total-value-cur"),
+                    ("result-value-notice", "result-value-cur-notice"),
+                    ("tender-value", "tender-value-cur")])
                 if cls == "award":
                     amount, currency, vsource = tot_v, tot_c, "awarded"
                     used_multi = tot_multi
