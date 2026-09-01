@@ -125,3 +125,7 @@ McCue & Boykin 2018).
 - **[2026-08-30 18:17 UTC] Placebos** — division 45 NOT extracted: placebo (a) not estimable this run (run 01_extract_ted.py --division 45)
 
 - **[2026-08-30 18:46 UTC] Estimation v2** — H1-H4 + robustness run on data/panel_country_month.csv; 11 treated countries; outputs in results/tables and figures/. HonestDiD: see table
+
+- **[2026-09-01 19:54 UTC] Field re-pull (15_repull_fields.py)** — re-pulled ['notice-title', 'estimated-value-glo', 'estimated-value-cur-glo', 'estimated-value-proc', 'estimated-value-cur-proc', 'estimated-value-lot', 'estimated-value-cur-lot', 'total-value', 'total-value-cur', 'result-value-notice', 'result-value-cur-notice', 'tender-value', 'tender-value-cur', 'main-activity'] for 1 chunks (0 failed) and merged into ted_raw on publication-number; fixes the 2026-08-30 probe drop.
+
+- **[2026-09-01 19:56 UTC] Reference data** — Eurostat fetched: HICP (prc_hicp_midx, I15, CP00, rebased 2021=100) for ['BE', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'HR', 'HU', 'IE', 'IT', 'LT', 'LV', 'SE', 'SK']; FX monthly averages (ert_bil_eur_m) for ['CZK', 'DKK', 'HRK', 'HUF', 'SEK'].
