@@ -1,0 +1,1285 @@
+{
+ "fields": [
+  "publication-number",
+  "framework-agreement-lot",
+  "framework-agreement-part",
+  "dps-usage-lot",
+  "dps-usage-part",
+  "contract-framework-agreement",
+  "framework-notice-id"
+ ],
+ "chunks": {
+  "IT/2025-01": {
+   "status": "complete",
+   "fetched": 68,
+   "existing": 68,
+   "matched": 68
+  },
+  "BE/2021-01": {
+   "status": "complete",
+   "fetched": 85,
+   "existing": 85,
+   "matched": 85
+  },
+  "BE/2021-02": {
+   "status": "complete",
+   "fetched": 98,
+   "existing": 98,
+   "matched": 98
+  },
+  "BE/2021-03": {
+   "status": "complete",
+   "fetched": 102,
+   "existing": 102,
+   "matched": 102
+  },
+  "BE/2021-04": {
+   "status": "complete",
+   "fetched": 109,
+   "existing": 109,
+   "matched": 109
+  },
+  "BE/2021-05": {
+   "status": "complete",
+   "fetched": 81,
+   "existing": 81,
+   "matched": 81
+  },
+  "BE/2021-06": {
+   "status": "complete",
+   "fetched": 101,
+   "existing": 101,
+   "matched": 101
+  },
+  "BE/2021-07": {
+   "status": "complete",
+   "fetched": 114,
+   "existing": 114,
+   "matched": 114
+  },
+  "BE/2021-08": {
+   "status": "complete",
+   "fetched": 78,
+   "existing": 78,
+   "matched": 78
+  },
+  "BE/2021-09": {
+   "status": "complete",
+   "fetched": 90,
+   "existing": 90,
+   "matched": 90
+  },
+  "BE/2021-10": {
+   "status": "complete",
+   "fetched": 111,
+   "existing": 111,
+   "matched": 111
+  },
+  "BE/2021-11": {
+   "status": "complete",
+   "fetched": 86,
+   "existing": 86,
+   "matched": 86
+  },
+  "BE/2021-12": {
+   "status": "complete",
+   "fetched": 105,
+   "existing": 105,
+   "matched": 105
+  },
+  "BE/2022-01": {
+   "status": "complete",
+   "fetched": 81,
+   "existing": 81,
+   "matched": 81
+  },
+  "BE/2022-02": {
+   "status": "complete",
+   "fetched": 80,
+   "existing": 80,
+   "matched": 80
+  },
+  "BE/2022-03": {
+   "status": "complete",
+   "fetched": 99,
+   "existing": 99,
+   "matched": 99
+  },
+  "BE/2022-04": {
+   "status": "complete",
+   "fetched": 106,
+   "existing": 106,
+   "matched": 106
+  },
+  "BE/2022-05": {
+   "status": "complete",
+   "fetched": 93,
+   "existing": 93,
+   "matched": 93
+  },
+  "BE/2022-06": {
+   "status": "complete",
+   "fetched": 66,
+   "existing": 66,
+   "matched": 66
+  },
+  "BE/2022-07": {
+   "status": "complete",
+   "fetched": 119,
+   "existing": 119,
+   "matched": 119
+  },
+  "BE/2022-08": {
+   "status": "complete",
+   "fetched": 87,
+   "existing": 87,
+   "matched": 87
+  },
+  "BE/2022-09": {
+   "status": "complete",
+   "fetched": 96,
+   "existing": 96,
+   "matched": 96
+  },
+  "BE/2022-10": {
+   "status": "complete",
+   "fetched": 106,
+   "existing": 106,
+   "matched": 106
+  },
+  "BE/2022-11": {
+   "status": "complete",
+   "fetched": 87,
+   "existing": 87,
+   "matched": 87
+  },
+  "BE/2022-12": {
+   "status": "complete",
+   "fetched": 106,
+   "existing": 106,
+   "matched": 106
+  },
+  "BE/2023-01": {
+   "status": "complete",
+   "fetched": 75,
+   "existing": 75,
+   "matched": 75
+  },
+  "BE/2023-02": {
+   "status": "complete",
+   "fetched": 93,
+   "existing": 93,
+   "matched": 93
+  },
+  "BE/2023-03": {
+   "status": "complete",
+   "fetched": 101,
+   "existing": 101,
+   "matched": 101
+  },
+  "BE/2023-04": {
+   "status": "complete",
+   "fetched": 97,
+   "existing": 97,
+   "matched": 97
+  },
+  "BE/2023-05": {
+   "status": "complete",
+   "fetched": 103,
+   "existing": 103,
+   "matched": 103
+  },
+  "BE/2023-06": {
+   "status": "complete",
+   "fetched": 89,
+   "existing": 89,
+   "matched": 89
+  },
+  "BE/2023-07": {
+   "status": "complete",
+   "fetched": 108,
+   "existing": 108,
+   "matched": 108
+  },
+  "BE/2023-08": {
+   "status": "complete",
+   "fetched": 100,
+   "existing": 100,
+   "matched": 100
+  },
+  "BE/2023-09": {
+   "status": "complete",
+   "fetched": 99,
+   "existing": 99,
+   "matched": 99
+  },
+  "BE/2023-10": {
+   "status": "complete",
+   "fetched": 107,
+   "existing": 107,
+   "matched": 107
+  },
+  "BE/2023-11": {
+   "status": "complete",
+   "fetched": 90,
+   "existing": 90,
+   "matched": 90
+  },
+  "BE/2023-12": {
+   "status": "complete",
+   "fetched": 122,
+   "existing": 122,
+   "matched": 122
+  },
+  "BE/2024-01": {
+   "status": "complete",
+   "fetched": 100,
+   "existing": 100,
+   "matched": 100
+  },
+  "BE/2024-02": {
+   "status": "complete",
+   "fetched": 162,
+   "existing": 162,
+   "matched": 162
+  },
+  "BE/2024-03": {
+   "status": "complete",
+   "fetched": 118,
+   "existing": 118,
+   "matched": 118
+  },
+  "BE/2024-04": {
+   "status": "complete",
+   "fetched": 111,
+   "existing": 111,
+   "matched": 111
+  },
+  "BE/2024-05": {
+   "status": "complete",
+   "fetched": 164,
+   "existing": 164,
+   "matched": 164
+  },
+  "BE/2024-06": {
+   "status": "complete",
+   "fetched": 136,
+   "existing": 136,
+   "matched": 136
+  },
+  "BE/2024-07": {
+   "status": "complete",
+   "fetched": 156,
+   "existing": 156,
+   "matched": 156
+  },
+  "BE/2024-08": {
+   "status": "complete",
+   "fetched": 94,
+   "existing": 94,
+   "matched": 94
+  },
+  "BE/2024-09": {
+   "status": "complete",
+   "fetched": 103,
+   "existing": 103,
+   "matched": 103
+  },
+  "BE/2024-10": {
+   "status": "complete",
+   "fetched": 92,
+   "existing": 92,
+   "matched": 92
+  },
+  "BE/2024-11": {
+   "status": "complete",
+   "fetched": 77,
+   "existing": 77,
+   "matched": 77
+  },
+  "BE/2024-12": {
+   "status": "complete",
+   "fetched": 115,
+   "existing": 115,
+   "matched": 115
+  },
+  "BE/2025-01": {
+   "status": "complete",
+   "fetched": 135,
+   "existing": 135,
+   "matched": 135
+  },
+  "BE/2025-02": {
+   "status": "complete",
+   "fetched": 107,
+   "existing": 107,
+   "matched": 107
+  },
+  "BE/2025-03": {
+   "status": "complete",
+   "fetched": 111,
+   "existing": 111,
+   "matched": 111
+  },
+  "BE/2025-04": {
+   "status": "complete",
+   "fetched": 144,
+   "existing": 144,
+   "matched": 144
+  },
+  "BE/2025-05": {
+   "status": "complete",
+   "fetched": 141,
+   "existing": 141,
+   "matched": 141
+  },
+  "BE/2025-06": {
+   "status": "complete",
+   "fetched": 137,
+   "existing": 137,
+   "matched": 137
+  },
+  "BE/2025-07": {
+   "status": "complete",
+   "fetched": 155,
+   "existing": 155,
+   "matched": 155
+  },
+  "BE/2025-08": {
+   "status": "complete",
+   "fetched": 129,
+   "existing": 129,
+   "matched": 129
+  },
+  "BE/2025-09": {
+   "status": "complete",
+   "fetched": 118,
+   "existing": 118,
+   "matched": 118
+  },
+  "BE/2025-10": {
+   "status": "complete",
+   "fetched": 142,
+   "existing": 142,
+   "matched": 142
+  },
+  "BE/2025-11": {
+   "status": "complete",
+   "fetched": 106,
+   "existing": 106,
+   "matched": 106
+  },
+  "BE/2025-12": {
+   "status": "complete",
+   "fetched": 130,
+   "existing": 130,
+   "matched": 130
+  },
+  "BE/2026-01": {
+   "status": "complete",
+   "fetched": 130,
+   "existing": 130,
+   "matched": 130
+  },
+  "BE/2026-02": {
+   "status": "complete",
+   "fetched": 83,
+   "existing": 83,
+   "matched": 83
+  },
+  "BE/2026-03": {
+   "status": "complete",
+   "fetched": 114,
+   "existing": 114,
+   "matched": 114
+  },
+  "BE/2026-04": {
+   "status": "complete",
+   "fetched": 111,
+   "existing": 111,
+   "matched": 111
+  },
+  "BE/2026-05": {
+   "status": "complete",
+   "fetched": 114,
+   "existing": 114,
+   "matched": 114
+  },
+  "BE/2026-06": {
+   "status": "complete",
+   "fetched": 164,
+   "existing": 164,
+   "matched": 164
+  },
+  "BE/2026-07": {
+   "status": "complete",
+   "fetched": 172,
+   "existing": 172,
+   "matched": 172
+  },
+  "BE/2026-08": {
+   "status": "complete",
+   "fetched": 147,
+   "existing": 141,
+   "matched": 141
+  },
+  "DE/2021-01": {
+   "status": "complete",
+   "fetched": 316,
+   "existing": 316,
+   "matched": 316
+  },
+  "DE/2021-02": {
+   "status": "complete",
+   "fetched": 455,
+   "existing": 455,
+   "matched": 455
+  },
+  "DE/2021-03": {
+   "status": "complete",
+   "fetched": 468,
+   "existing": 468,
+   "matched": 468
+  },
+  "DE/2021-04": {
+   "status": "complete",
+   "fetched": 432,
+   "existing": 432,
+   "matched": 432
+  },
+  "DE/2021-05": {
+   "status": "complete",
+   "fetched": 426,
+   "existing": 426,
+   "matched": 426
+  },
+  "DE/2021-06": {
+   "status": "complete",
+   "fetched": 485,
+   "existing": 485,
+   "matched": 485
+  },
+  "DE/2021-07": {
+   "status": "complete",
+   "fetched": 483,
+   "existing": 483,
+   "matched": 483
+  },
+  "DE/2021-08": {
+   "status": "complete",
+   "fetched": 459,
+   "existing": 459,
+   "matched": 459
+  },
+  "DE/2021-09": {
+   "status": "complete",
+   "fetched": 460,
+   "existing": 460,
+   "matched": 460
+  },
+  "DE/2021-10": {
+   "status": "complete",
+   "fetched": 513,
+   "existing": 513,
+   "matched": 513
+  },
+  "DE/2021-11": {
+   "status": "complete",
+   "fetched": 444,
+   "existing": 444,
+   "matched": 444
+  },
+  "DE/2021-12": {
+   "status": "complete",
+   "fetched": 527,
+   "existing": 527,
+   "matched": 527
+  },
+  "DE/2022-01": {
+   "status": "complete",
+   "fetched": 419,
+   "existing": 419,
+   "matched": 419
+  },
+  "DE/2022-02": {
+   "status": "complete",
+   "fetched": 393,
+   "existing": 393,
+   "matched": 393
+  },
+  "DE/2022-03": {
+   "status": "complete",
+   "fetched": 441,
+   "existing": 441,
+   "matched": 441
+  },
+  "DE/2022-04": {
+   "status": "complete",
+   "fetched": 483,
+   "existing": 483,
+   "matched": 483
+  },
+  "DE/2022-05": {
+   "status": "complete",
+   "fetched": 472,
+   "existing": 472,
+   "matched": 472
+  },
+  "DE/2022-06": {
+   "status": "complete",
+   "fetched": 430,
+   "existing": 430,
+   "matched": 430
+  },
+  "DE/2022-07": {
+   "status": "complete",
+   "fetched": 524,
+   "existing": 524,
+   "matched": 524
+  },
+  "DE/2022-08": {
+   "status": "complete",
+   "fetched": 530,
+   "existing": 530,
+   "matched": 530
+  },
+  "DE/2022-09": {
+   "status": "complete",
+   "fetched": 462,
+   "existing": 462,
+   "matched": 462
+  },
+  "DE/2022-10": {
+   "status": "complete",
+   "fetched": 545,
+   "existing": 545,
+   "matched": 545
+  },
+  "DE/2022-11": {
+   "status": "complete",
+   "fetched": 474,
+   "existing": 474,
+   "matched": 474
+  },
+  "DE/2022-12": {
+   "status": "complete",
+   "fetched": 577,
+   "existing": 577,
+   "matched": 577
+  },
+  "DE/2023-01": {
+   "status": "complete",
+   "fetched": 414,
+   "existing": 414,
+   "matched": 414
+  },
+  "DE/2023-02": {
+   "status": "complete",
+   "fetched": 446,
+   "existing": 446,
+   "matched": 446
+  },
+  "DE/2023-03": {
+   "status": "complete",
+   "fetched": 478,
+   "existing": 478,
+   "matched": 478
+  },
+  "DE/2023-04": {
+   "status": "complete",
+   "fetched": 457,
+   "existing": 457,
+   "matched": 457
+  },
+  "DE/2023-05": {
+   "status": "complete",
+   "fetched": 536,
+   "existing": 536,
+   "matched": 536
+  },
+  "DE/2023-06": {
+   "status": "complete",
+   "fetched": 492,
+   "existing": 492,
+   "matched": 492
+  },
+  "DE/2023-07": {
+   "status": "complete",
+   "fetched": 560,
+   "existing": 560,
+   "matched": 560
+  },
+  "DE/2023-08": {
+   "status": "complete",
+   "fetched": 528,
+   "existing": 528,
+   "matched": 528
+  },
+  "DE/2023-09": {
+   "status": "complete",
+   "fetched": 540,
+   "existing": 540,
+   "matched": 540
+  },
+  "DE/2023-10": {
+   "status": "complete",
+   "fetched": 500,
+   "existing": 500,
+   "matched": 500
+  },
+  "DE/2023-11": {
+   "status": "complete",
+   "fetched": 425,
+   "existing": 425,
+   "matched": 425
+  },
+  "DE/2023-12": {
+   "status": "complete",
+   "fetched": 496,
+   "existing": 496,
+   "matched": 496
+  },
+  "DE/2024-01": {
+   "status": "complete",
+   "fetched": 527,
+   "existing": 527,
+   "matched": 527
+  },
+  "DE/2024-02": {
+   "status": "complete",
+   "fetched": 474,
+   "existing": 474,
+   "matched": 474
+  },
+  "DE/2024-03": {
+   "status": "complete",
+   "fetched": 490,
+   "existing": 490,
+   "matched": 490
+  },
+  "DE/2024-04": {
+   "status": "complete",
+   "fetched": 450,
+   "existing": 450,
+   "matched": 450
+  },
+  "DE/2024-05": {
+   "status": "complete",
+   "fetched": 609,
+   "existing": 609,
+   "matched": 609
+  },
+  "DE/2024-06": {
+   "status": "complete",
+   "fetched": 499,
+   "existing": 499,
+   "matched": 499
+  },
+  "DE/2024-07": {
+   "status": "complete",
+   "fetched": 607,
+   "existing": 607,
+   "matched": 607
+  },
+  "DE/2024-08": {
+   "status": "complete",
+   "fetched": 542,
+   "existing": 542,
+   "matched": 542
+  },
+  "DE/2024-09": {
+   "status": "complete",
+   "fetched": 530,
+   "existing": 530,
+   "matched": 530
+  },
+  "DE/2024-10": {
+   "status": "complete",
+   "fetched": 637,
+   "existing": 637,
+   "matched": 637
+  },
+  "DE/2024-11": {
+   "status": "complete",
+   "fetched": 486,
+   "existing": 486,
+   "matched": 486
+  },
+  "DE/2024-12": {
+   "status": "complete",
+   "fetched": 639,
+   "existing": 639,
+   "matched": 639
+  },
+  "DE/2025-01": {
+   "status": "complete",
+   "fetched": 511,
+   "existing": 511,
+   "matched": 511
+  },
+  "DE/2025-02": {
+   "status": "complete",
+   "fetched": 482,
+   "existing": 482,
+   "matched": 482
+  },
+  "DE/2025-03": {
+   "status": "complete",
+   "fetched": 474,
+   "existing": 474,
+   "matched": 474
+  },
+  "DE/2025-04": {
+   "status": "complete",
+   "fetched": 551,
+   "existing": 551,
+   "matched": 551
+  },
+  "DE/2025-05": {
+   "status": "complete",
+   "fetched": 496,
+   "existing": 496,
+   "matched": 496
+  },
+  "DE/2025-06": {
+   "status": "complete",
+   "fetched": 495,
+   "existing": 495,
+   "matched": 495
+  },
+  "DE/2025-07": {
+   "status": "complete",
+   "fetched": 657,
+   "existing": 657,
+   "matched": 657
+  },
+  "DE/2025-08": {
+   "status": "complete",
+   "fetched": 619,
+   "existing": 619,
+   "matched": 619
+  },
+  "DE/2025-09": {
+   "status": "complete",
+   "fetched": 570,
+   "existing": 570,
+   "matched": 570
+  },
+  "DE/2025-10": {
+   "status": "complete",
+   "fetched": 643,
+   "existing": 643,
+   "matched": 643
+  },
+  "DE/2025-11": {
+   "status": "complete",
+   "fetched": 571,
+   "existing": 571,
+   "matched": 571
+  },
+  "DE/2025-12": {
+   "status": "complete",
+   "fetched": 673,
+   "existing": 673,
+   "matched": 673
+  },
+  "DE/2026-01": {
+   "status": "complete",
+   "fetched": 532,
+   "existing": 532,
+   "matched": 532
+  },
+  "DE/2026-02": {
+   "status": "complete",
+   "fetched": 536,
+   "existing": 536,
+   "matched": 536
+  },
+  "DE/2026-03": {
+   "status": "complete",
+   "fetched": 629,
+   "existing": 629,
+   "matched": 629
+  },
+  "DE/2026-04": {
+   "status": "complete",
+   "fetched": 602,
+   "existing": 602,
+   "matched": 602
+  },
+  "DE/2026-05": {
+   "status": "complete",
+   "fetched": 539,
+   "existing": 539,
+   "matched": 539
+  },
+  "DE/2026-06": {
+   "status": "complete",
+   "fetched": 651,
+   "existing": 651,
+   "matched": 651
+  },
+  "DE/2026-07": {
+   "status": "complete",
+   "fetched": 731,
+   "existing": 731,
+   "matched": 731
+  },
+  "DE/2026-08": {
+   "status": "complete",
+   "fetched": 634,
+   "existing": 606,
+   "matched": 606
+  },
+  "DK/2021-01": {
+   "status": "complete",
+   "fetched": 52,
+   "existing": 52,
+   "matched": 52
+  },
+  "DK/2021-02": {
+   "status": "complete",
+   "fetched": 39,
+   "existing": 39,
+   "matched": 39
+  },
+  "DK/2021-03": {
+   "status": "complete",
+   "fetched": 60,
+   "existing": 60,
+   "matched": 60
+  },
+  "DK/2021-04": {
+   "status": "complete",
+   "fetched": 49,
+   "existing": 49,
+   "matched": 49
+  },
+  "DK/2021-05": {
+   "status": "complete",
+   "fetched": 56,
+   "existing": 56,
+   "matched": 56
+  },
+  "DK/2021-06": {
+   "status": "complete",
+   "fetched": 55,
+   "existing": 55,
+   "matched": 55
+  },
+  "DK/2021-07": {
+   "status": "complete",
+   "fetched": 52,
+   "existing": 52,
+   "matched": 52
+  },
+  "DK/2021-08": {
+   "status": "complete",
+   "fetched": 34,
+   "existing": 34,
+   "matched": 34
+  },
+  "DK/2021-09": {
+   "status": "complete",
+   "fetched": 51,
+   "existing": 51,
+   "matched": 51
+  },
+  "DK/2021-10": {
+   "status": "complete",
+   "fetched": 69,
+   "existing": 69,
+   "matched": 69
+  },
+  "DK/2021-11": {
+   "status": "complete",
+   "fetched": 47,
+   "existing": 47,
+   "matched": 47
+  },
+  "DK/2021-12": {
+   "status": "complete",
+   "fetched": 60,
+   "existing": 60,
+   "matched": 60
+  },
+  "DK/2022-01": {
+   "status": "complete",
+   "fetched": 55,
+   "existing": 55,
+   "matched": 55
+  },
+  "DK/2022-02": {
+   "status": "complete",
+   "fetched": 59,
+   "existing": 59,
+   "matched": 59
+  },
+  "DK/2022-03": {
+   "status": "complete",
+   "fetched": 45,
+   "existing": 45,
+   "matched": 45
+  },
+  "DK/2022-04": {
+   "status": "complete",
+   "fetched": 57,
+   "existing": 57,
+   "matched": 57
+  },
+  "DK/2022-05": {
+   "status": "complete",
+   "fetched": 56,
+   "existing": 56,
+   "matched": 56
+  },
+  "DK/2022-06": {
+   "status": "complete",
+   "fetched": 44,
+   "existing": 44,
+   "matched": 44
+  },
+  "DK/2022-07": {
+   "status": "complete",
+   "fetched": 65,
+   "existing": 65,
+   "matched": 65
+  },
+  "DK/2022-08": {
+   "status": "complete",
+   "fetched": 38,
+   "existing": 38,
+   "matched": 38
+  },
+  "DK/2022-09": {
+   "status": "complete",
+   "fetched": 50,
+   "existing": 50,
+   "matched": 50
+  },
+  "DK/2022-10": {
+   "status": "complete",
+   "fetched": 55,
+   "existing": 55,
+   "matched": 55
+  },
+  "DK/2022-11": {
+   "status": "complete",
+   "fetched": 72,
+   "existing": 72,
+   "matched": 72
+  },
+  "DK/2022-12": {
+   "status": "complete",
+   "fetched": 69,
+   "existing": 69,
+   "matched": 69
+  },
+  "DK/2023-01": {
+   "status": "complete",
+   "fetched": 58,
+   "existing": 58,
+   "matched": 58
+  },
+  "DK/2023-02": {
+   "status": "complete",
+   "fetched": 71,
+   "existing": 71,
+   "matched": 71
+  },
+  "DK/2023-03": {
+   "status": "complete",
+   "fetched": 89,
+   "existing": 89,
+   "matched": 89
+  },
+  "DK/2023-04": {
+   "status": "complete",
+   "fetched": 51,
+   "existing": 51,
+   "matched": 51
+  },
+  "DK/2023-05": {
+   "status": "complete",
+   "fetched": 67,
+   "existing": 67,
+   "matched": 67
+  },
+  "DK/2023-06": {
+   "status": "complete",
+   "fetched": 76,
+   "existing": 76,
+   "matched": 76
+  },
+  "DK/2023-07": {
+   "status": "complete",
+   "fetched": 66,
+   "existing": 66,
+   "matched": 66
+  },
+  "DK/2023-08": {
+   "status": "complete",
+   "fetched": 57,
+   "existing": 57,
+   "matched": 57
+  },
+  "DK/2023-09": {
+   "status": "complete",
+   "fetched": 55,
+   "existing": 55,
+   "matched": 55
+  },
+  "DK/2023-10": {
+   "status": "complete",
+   "fetched": 45,
+   "existing": 45,
+   "matched": 45
+  },
+  "DK/2023-11": {
+   "status": "complete",
+   "fetched": 61,
+   "existing": 61,
+   "matched": 61
+  },
+  "DK/2023-12": {
+   "status": "complete",
+   "fetched": 77,
+   "existing": 77,
+   "matched": 77
+  },
+  "DK/2024-01": {
+   "status": "complete",
+   "fetched": 46,
+   "existing": 46,
+   "matched": 46
+  },
+  "DK/2024-02": {
+   "status": "complete",
+   "fetched": 59,
+   "existing": 59,
+   "matched": 59
+  },
+  "DK/2024-03": {
+   "status": "complete",
+   "fetched": 40,
+   "existing": 40,
+   "matched": 40
+  },
+  "DK/2024-04": {
+   "status": "complete",
+   "fetched": 43,
+   "existing": 43,
+   "matched": 43
+  },
+  "DK/2024-05": {
+   "status": "complete",
+   "fetched": 61,
+   "existing": 61,
+   "matched": 61
+  },
+  "DK/2024-06": {
+   "status": "complete",
+   "fetched": 53,
+   "existing": 53,
+   "matched": 53
+  },
+  "DK/2024-07": {
+   "status": "complete",
+   "fetched": 62,
+   "existing": 62,
+   "matched": 62
+  },
+  "DK/2024-08": {
+   "status": "complete",
+   "fetched": 47,
+   "existing": 47,
+   "matched": 47
+  },
+  "DK/2024-09": {
+   "status": "complete",
+   "fetched": 55,
+   "existing": 55,
+   "matched": 55
+  },
+  "DK/2024-10": {
+   "status": "complete",
+   "fetched": 65,
+   "existing": 65,
+   "matched": 65
+  },
+  "DK/2024-11": {
+   "status": "complete",
+   "fetched": 79,
+   "existing": 79,
+   "matched": 79
+  },
+  "DK/2024-12": {
+   "status": "complete",
+   "fetched": 81,
+   "existing": 81,
+   "matched": 81
+  },
+  "DK/2025-01": {
+   "status": "complete",
+   "fetched": 74,
+   "existing": 74,
+   "matched": 74
+  },
+  "DK/2025-02": {
+   "status": "complete",
+   "fetched": 77,
+   "existing": 77,
+   "matched": 77
+  },
+  "DK/2025-03": {
+   "status": "complete",
+   "fetched": 62,
+   "existing": 62,
+   "matched": 62
+  },
+  "DK/2025-04": {
+   "status": "complete",
+   "fetched": 61,
+   "existing": 61,
+   "matched": 61
+  },
+  "DK/2025-05": {
+   "status": "complete",
+   "fetched": 82,
+   "existing": 82,
+   "matched": 82
+  },
+  "DK/2025-06": {
+   "status": "complete",
+   "fetched": 47,
+   "existing": 47,
+   "matched": 47
+  },
+  "DK/2025-07": {
+   "status": "complete",
+   "fetched": 55,
+   "existing": 55,
+   "matched": 55
+  },
+  "DK/2025-08": {
+   "status": "complete",
+   "fetched": 77,
+   "existing": 77,
+   "matched": 77
+  },
+  "DK/2025-09": {
+   "status": "complete",
+   "fetched": 64,
+   "existing": 64,
+   "matched": 64
+  },
+  "DK/2025-10": {
+   "status": "complete",
+   "fetched": 58,
+   "existing": 58,
+   "matched": 58
+  },
+  "DK/2025-11": {
+   "status": "complete",
+   "fetched": 48,
+   "existing": 48,
+   "matched": 48
+  },
+  "DK/2025-12": {
+   "status": "complete",
+   "fetched": 54,
+   "existing": 54,
+   "matched": 54
+  },
+  "DK/2026-01": {
+   "status": "complete",
+   "fetched": 40,
+   "existing": 40,
+   "matched": 40
+  },
+  "DK/2026-02": {
+   "status": "complete",
+   "fetched": 44,
+   "existing": 44,
+   "matched": 44
+  },
+  "DK/2026-03": {
+   "status": "complete",
+   "fetched": 51,
+   "existing": 51,
+   "matched": 51
+  },
+  "DK/2026-04": {
+   "status": "complete",
+   "fetched": 52,
+   "existing": 52,
+   "matched": 52
+  },
+  "DK/2026-05": {
+   "status": "complete",
+   "fetched": 47,
+   "existing": 47,
+   "matched": 47
+  },
+  "DK/2026-06": {
+   "status": "complete",
+   "fetched": 50,
+   "existing": 50,
+   "matched": 50
+  },
+  "DK/2026-07": {
+   "status": "complete",
+   "fetched": 46,
+   "existing": 46,
+   "matched": 46
+  },
+  "DK/2026-08": {
+   "status": "complete",
+   "fetched": 39,
+   "existing": 38,
+   "matched": 38
+  },
+  "ES/2021-01": {
+   "status": "complete",
+   "fetched": 296,
+   "existing": 296,
+   "matched": 296
+  },
+  "ES/2021-02": {
+   "status": "complete",
+   "fetched": 372,
+   "existing": 372,
+   "matched": 372
+  },
+  "ES/2021-03": {
+   "status": "complete",
+   "fetched": 399,
+   "existing": 399,
+   "matched": 399
+  },
+  "ES/2021-04": {
+   "status": "complete",
+   "fetched": 361,
+   "existing": 361,
+   "matched": 361
+  },
+  "ES/2021-05": {
+   "status": "complete",
+   "fetched": 382,
+   "existing": 382,
+   "matched": 382
+  },
+  "ES/2021-06": {
+   "status": "complete",
+   "fetched": 410,
+   "existing": 410,
+   "matched": 410
+  },
+  "ES/2021-07": {
+   "status": "complete",
+   "fetched": 435,
+   "existing": 435,
+   "matched": 435
+  }
+ }
+}
