@@ -1,0 +1,156 @@
+{
+ "chunks": {
+  "HR/2021-01": {
+   "status": "complete",
+   "month": "2021-01",
+   "total_reported": 71,
+   "fetched": 71,
+   "pagination_dupes_dropped": 0,
+   "file": "HR/2021-01.jsonl.gz"
+  },
+  "HR/2021-02": {
+   "status": "complete",
+   "month": "2021-02",
+   "total_reported": 87,
+   "fetched": 87,
+   "pagination_dupes_dropped": 0,
+   "file": "HR/2021-02.jsonl.gz"
+  },
+  "HR/2021-03": {
+   "status": "complete",
+   "month": "2021-03",
+   "total_reported": 95,
+   "fetched": 95,
+   "pagination_dupes_dropped": 0,
+   "file": "HR/2021-03.jsonl.gz"
+  },
+  "HR/2021-04": {
+   "status": "complete",
+   "month": "2021-04",
+   "total_reported": 85,
+   "fetched": 85,
+   "pagination_dupes_dropped": 0,
+   "file": "HR/2021-04.jsonl.gz"
+  },
+  "HR/2021-05": {
+   "status": "complete",
+   "month": "2021-05",
+   "total_reported": 67,
+   "fetched": 67,
+   "pagination_dupes_dropped": 0,
+   "file": "HR/2021-05.jsonl.gz"
+  },
+  "HR/2021-06": {
+   "status": "complete",
+   "month": "2021-06",
+   "total_reported": 80,
+   "fetched": 80,
+   "pagination_dupes_dropped": 0,
+   "file": "HR/2021-06.jsonl.gz"
+  },
+  "HR/2021-07": {
+   "status": "complete",
+   "month": "2021-07",
+   "total_reported": 76,
+   "fetched": 76,
+   "pagination_dupes_dropped": 0,
+   "file": "HR/2021-07.jsonl.gz"
+  },
+  "HR/2021-08": {
+   "status": "complete",
+   "month": "2021-08",
+   "total_reported": 74,
+   "fetched": 74,
+   "pagination_dupes_dropped": 0,
+   "file": "HR/2021-08.jsonl.gz"
+  },
+  "HR/2021-09": {
+   "status": "complete",
+   "month": "2021-09",
+   "total_reported": 62,
+   "fetched": 62,
+   "pagination_dupes_dropped": 0,
+   "file": "HR/2021-09.jsonl.gz"
+  },
+  "HR/2021-10": {
+   "status": "complete",
+   "month": "2021-10",
+   "total_reported": 94,
+   "fetched": 94,
+   "pagination_dupes_dropped": 0,
+   "file": "HR/2021-10.jsonl.gz"
+  },
+  "HR/2021-11": {
+   "status": "complete",
+   "month": "2021-11",
+   "total_reported": 78,
+   "fetched": 78,
+   "pagination_dupes_dropped": 0,
+   "file": "HR/2021-11.jsonl.gz"
+  },
+  "HR/2021-12": {
+   "status": "complete",
+   "month": "2021-12",
+   "total_reported": 79,
+   "fetched": 79,
+   "pagination_dupes_dropped": 0,
+   "file": "HR/2021-12.jsonl.gz"
+  },
+  "HR/2022-01": {
+   "status": "complete",
+   "month": "2022-01",
+   "total_reported": 62,
+   "fetched": 62,
+   "pagination_dupes_dropped": 0,
+   "file": "HR/2022-01.jsonl.gz"
+  },
+  "HR/2022-02": {
+   "status": "complete",
+   "month": "2022-02",
+   "total_reported": 62,
+   "fetched": 62,
+   "pagination_dupes_dropped": 0,
+   "file": "HR/2022-02.jsonl.gz"
+  }
+ },
+ "meta": {
+  "template": "(classification-cpv IN ({cpv}*)) AND buyer-country={iso3} AND publication-date>={d0} AND publication-date<={d1}",
+  "fields": [
+   "publication-number",
+   "publication-date",
+   "buyer-country",
+   "buyer-name",
+   "notice-type",
+   "form-type",
+   "contract-nature",
+   "procedure-type",
+   "procedure-accelerated",
+   "classification-cpv",
+   "notice-title",
+   "total-value",
+   "total-value-cur",
+   "estimated-value-glo",
+   "estimated-value-cur-glo",
+   "estimated-value-proc",
+   "estimated-value-cur-proc",
+   "estimated-value-lot",
+   "estimated-value-cur-lot",
+   "result-value-notice",
+   "result-value-cur-notice",
+   "tender-value",
+   "tender-value-cur",
+   "main-activity",
+   "framework-agreement-lot",
+   "framework-agreement-part",
+   "dps-usage-lot",
+   "dps-usage-part",
+   "contract-framework-agreement",
+   "links"
+  ],
+  "server_cpv_filter": true,
+  "window": [
+   "2021-01",
+   "2026-07"
+  ]
+ }
+}
