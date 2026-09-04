@@ -156,13 +156,23 @@ def main():
             est_ict_real = vsum(ict_t, "value_eur_real")
             new_t = cyb_t[cyb_t["is_new_buyer"]]
             inc_t = cyb_t[~cyb_t["is_new_buyer"]]
+            # V4: ex-framework variants (framework/DPS notices excluded)
+            cyb_tx = cyb_t[~cyb_t["is_framework"]]
+            ict_tx = ict_t[~ict_t["is_framework"]]
+            inc_tx = inc_t[~inc_t["is_framework"]]
+            est_cyb_real_x = vsum(cyb_tx, "value_eur_real")
+            est_ict_real_x = vsum(ict_tx, "value_eur_real")
+            est_cyb_real_w = vsum(cyb_t, "value_eur_real_win")
+            est_ict_real_w = vsum(ict_t, "value_eur_real_win")
             rows.append({
                 "country": c, "month": m,
                 "n_cyber_tenders": len(cyb_t), "n_cyber_awards": len(cyb_a),
                 "n_strict_tenders": int((ten["category"] == "cyber_strict").sum()),
                 "est_value_cyber_eur": vsum(cyb_t, "value_eur"),
                 "est_value_cyber_real": est_cyb_real,
-                "est_value_cyber_real_win": vsum(cyb_t, "value_eur_real_win"),
+                "est_value_cyber_real_win": est_cyb_real_w,
+                "est_value_cyber_real_exfw": est_cyb_real_x,
+                "n_cyber_tenders_exfw": len(cyb_tx),
                 "awd_value_cyber_eur": vsum(cyb_a, "value_eur"),
                 "awd_value_cyber_real": vsum(cyb_a, "value_eur_real"),
                 "awd_value_cyber_real_win": vsum(cyb_a, "value_eur_real_win"),
@@ -171,12 +181,22 @@ def main():
                 "n_new_buyers_cyber": int(cyb_t["is_new_buyer"].sum()),
                 "est_value_new_real": vsum(new_t, "value_eur_real"),
                 "est_value_incumbent_real": vsum(inc_t, "value_eur_real"),
+                "est_value_incumbent_real_win": vsum(inc_t, "value_eur_real_win"),
+                "est_value_incumbent_real_exfw": vsum(inc_tx, "value_eur_real"),
                 "n_ict72_tenders": len(ict_t),
                 "n_ict_generic_tenders": int((ten["category"] == "ict_generic").sum()),
                 "share_cyber_n": (len(cyb_t) / len(ict_t)) if len(ict_t) else np.nan,
                 "share_cyber_value": (est_cyb_real / est_ict_real
                                       if est_ict_real and est_ict_real > 0
                                       else np.nan),
+                "share_cyber_value_exfw": (est_cyb_real_x / est_ict_real_x
+                                           if est_ict_real_x
+                                           and est_ict_real_x > 0
+                                           else np.nan),
+                "share_cyber_value_win": (est_cyb_real_w / est_ict_real_w
+                                          if est_ict_real_w
+                                          and est_ict_real_w > 0
+                                          else np.nan),
                 "accel_share_ict": (float(ict_t["is_accelerated"].mean())
                                     if len(ict_t) else np.nan),
                 "negwc_share_ict": (float(ict_t["is_neg_wo_call"].mean())
@@ -288,6 +308,8 @@ average FX; real = deflated by buyer-country all-items HICP (2021=100);
 | n_ict72_tenders | tenders in CPV division 72 (cyber + generic) |
 | n_ict_generic_tenders | division-72 tenders not classified cyber (placebo b) |
 | share_cyber_n / share_cyber_value | cyber share of division-72 tenders / value (H2) |
+| *_exfw (values, shares, n_cyber_tenders_exfw) | framework/DPS notices excluded (rule V4: eForms BT-765/766 indicator, title keywords, central-purchasing buyers, repeated identical big amounts) |
+| share_cyber_value_win / est_value_incumbent_real_win | winsorized-value variants of the H2 share and H1 intensive outcomes |
 | accel_share_ict / accel_share_cyber | share of accelerated procedures (H3) |
 | negwc_share_ict | share negotiated-without-call (H3) |
 | n_modifications_ict / _cyber | contract-modification notices, division 72 (H3) |

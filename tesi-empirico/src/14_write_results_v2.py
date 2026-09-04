@@ -114,6 +114,12 @@ def main():
         ("h1_intensive_incumbent_value", "H1 intensive: incumbent value (log1p)"),
         ("h2_share_n", "H2 cyber share of ICT (counts)"),
         ("h2_share_value", "H2 cyber share of ICT (value)"),
+        ("h1_value_exfw", "H1 cyber value, framework/DPS excluded"),
+        ("h1_intensive_exfw", "H1 intensive, framework/DPS excluded"),
+        ("h2_share_value_exfw", "H2 value share, framework/DPS excluded"),
+        ("h1_value_win", "H1 cyber value, winsorized 1/99"),
+        ("h1_intensive_win", "H1 intensive, winsorized 1/99"),
+        ("h2_share_value_win", "H2 value share, winsorized 1/99"),
         ("h3_accel_share", "H3 accelerated-procedure share"),
         ("h3_negwc_share", "H3 negotiated-w/o-call share"),
         ("h3_modifications", "H3 contract modifications (log1p)"),
@@ -211,6 +217,14 @@ def write_limits():
          "max-of-leaves; multicurrency → NaN (CLEANING_LOG V1/V3).",
          "- Winsorized (1%/99%) value variants carried in the panel; "
          "baseline uses unwinsorized log1p.",
+         "- Rule V4 (framework/DPS flag): value outcomes are dominated by "
+         "framework/DPS mega-notices republished by central purchasing "
+         "bodies (e.g. SKI 02.14 DKK 89.3bn ×4 publications, OGP €3.75bn); "
+         "is_framework = eForms BT-765/766 indicator when present (post "
+         "2023-10), else title keywords + CPB buyer list + repeated "
+         "identical big amounts (config/framework_rules.json). *_exfw "
+         "variants exclude flagged notices; the flag is a proxy pre-eForms "
+         "and the CPB list is not exhaustive.",
          "- Overall ATT defined as mean event-time ATT over e∈[0,18] "
          "(matches the reported window; package full-horizon overall kept "
          "in tables).",

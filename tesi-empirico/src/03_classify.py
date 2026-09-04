@@ -234,6 +234,56 @@ def pick_field(n: dict, names: list[str]):
     return None
 
 
+FW_RULES = load_json("framework_rules.json")
+FW_INDICATOR_FIELDS = ("framework-agreement-lot", "framework-agreement-part",
+                       "dps-usage-lot", "dps-usage-part",
+                       "contract-framework-agreement")
+FW_ACRO_RE = re.compile(
+    r"\b(" + "|".join(map(re.escape, FW_RULES["acronyms_case_sensitive"]))
+    + r")\b")
+
+
+def framework_indicator(n: dict) -> bool:
+    """eForms BT-765/BT-766 (+ legacy boolean): any lot/part value other
+    than 'none' marks the notice as framework/DPS."""
+    def hits(v):
+        vals = v if isinstance(v, list) else [v]
+        return any(x not in (None, "", "none", False) for x in vals)
+    return any(hits(n.get(k)) for k in FW_INDICATOR_FIELDS
+               if n.get(k) is not None)
+
+
+def flag_frameworks(df: "pd.DataFrame") -> "pd.DataFrame":
+    """Rule V4 — is_framework = eForms/legacy indicator OR title keyword OR
+    central-purchasing-body buyer OR the same big amount repeated under
+    several publication numbers (framework republication signature)."""
+    kw = df["title_folded"].apply(
+        lambda t: any(k in t for k in FW_RULES["title_keywords_folded_lower"]))
+    kw |= df["title"].fillna("").apply(lambda t: bool(FW_ACRO_RE.search(t)))
+    cpb = df["buyer_folded"].apply(
+        lambda b: any(k in b for k in
+                      FW_RULES["central_purchasing_buyers_folded_lower"]))
+    big = (df["include_in_counts"] & df["value_amount"].notna()
+           & (df["value_amount"] >= FW_RULES["repeat_amount_min_eurlike"]))
+    reps = (df[big].groupby(["country", "value_currency", "value_amount"])
+            ["publication_number"].transform("nunique"))
+    rep = pd.Series(False, index=df.index)
+    rep.loc[reps.index] = reps >= FW_RULES["repeat_min_publications"]
+    df["is_framework"] = df["fw_indicator"] | kw | cpb | rep
+    log_cleaning("Rule V4 (framework/DPS flag)",
+                 f"is_framework on {int(df['is_framework'].sum())} of "
+                 f"{len(df)} notices — components: eForms/legacy indicator "
+                 f"{int(df['fw_indicator'].sum())} (indicator fields present "
+                 f"on {int(df['fw_indicator_present'].sum())}), title keyword "
+                 f"{int(kw.sum())}, central-purchasing buyer {int(cpb.sum())}, "
+                 f"repeated identical amount >= "
+                 f"{FW_RULES['repeat_amount_min_eurlike']:,} x"
+                 f"{FW_RULES['repeat_min_publications']}+ publications "
+                 f"{int(rep.sum())}. Value outcomes get *_exfw variants "
+                 f"excluding flagged notices (config/framework_rules.json).")
+    return df
+
+
 def resolve_value_chain(n: dict, pairs: list[tuple[str, str]]):
     """First (amount-field, currency-field) pair with a parseable amount wins;
     amount and currency always come from the same aggregation level (glo /
@@ -383,6 +433,9 @@ def main():
                     "value_currency": currency,
                     "value_source": vsource,
                     "is_post_eforms": pub_date >= EFORMS_CUTOVER if pub_date else None,
+                    "fw_indicator": framework_indicator(n),
+                    "fw_indicator_present": any(
+                        n.get(k) is not None for k in FW_INDICATOR_FIELDS),
                 })
 
     df = pd.DataFrame(rows)
@@ -413,6 +466,8 @@ def main():
         n_d3 = int(rep_mask.sum())
         n_d3_groups = int(dup_all.sum()) - n_d3
         df = df[~rep_mask].copy()
+
+    df = flag_frameworks(df)
 
     # buyer_folded doubles as buyer_id: the only buyer identifier TED exposes
     # consistently is the name — a proxy (renames/spelling variants split one

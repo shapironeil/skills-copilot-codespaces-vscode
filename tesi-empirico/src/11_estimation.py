@@ -342,6 +342,37 @@ def main():
               "h2_share_value", "H2 — Cyber share of ICT value",
               "ATT, cyber share (value)")
 
+    # -------- V4 robustness: framework/DPS excluded, and winsorized 1/99
+    save_spec(cs(p, "est_value_cyber_real_exfw",
+                 label="H1 value ex-framework"),
+              "h1_value_exfw",
+              "H1 — Cyber tender value, framework/DPS excluded",
+              "ATT, log(1 + cyber value real, ex-framework)")
+    save_spec(cs(p, "est_value_incumbent_real_exfw",
+                 label="H1 intensive ex-framework"),
+              "h1_intensive_exfw",
+              "H1 — Intensive margin, framework/DPS excluded",
+              "ATT, log(1 + incumbent value real, ex-framework)")
+    save_spec(cs(p, "share_cyber_value_exfw", log=False,
+                 label="H2 share value ex-framework"),
+              "h2_share_value_exfw",
+              "H2 — Cyber share of ICT value, framework/DPS excluded",
+              "ATT, cyber share (value, ex-framework)")
+    save_spec(cs(p, "est_value_cyber_real_win", label="H1 value winsorized"),
+              "h1_value_win",
+              "H1 — Cyber tender value, winsorized 1/99",
+              "ATT, log(1 + cyber value real, winsorized)")
+    save_spec(cs(p, "est_value_incumbent_real_win",
+                 label="H1 intensive winsorized"),
+              "h1_intensive_win",
+              "H1 — Intensive margin, winsorized 1/99",
+              "ATT, log(1 + incumbent value real, winsorized)")
+    save_spec(cs(p, "share_cyber_value_win", log=False,
+                 label="H2 share value winsorized"),
+              "h2_share_value_win",
+              "H2 — Cyber share of ICT value, winsorized 1/99",
+              "ATT, cyber share (value, winsorized)")
+
     # -------- H3: procedures near t=0 (event profile of H1 covers timing)
     save_spec(cs(p, "accel_share_ict", log=False, label="H3 accelerated share"),
               "h3_accel_share", "H3 — Accelerated procedures, ICT div. 72",
