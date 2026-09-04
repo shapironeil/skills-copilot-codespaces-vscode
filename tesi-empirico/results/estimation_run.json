@@ -9,8 +9,8 @@
    "pretrend_wald": "unavailable: TypeError",
    "event": "table:h1_n_cyber",
    "cohort": "table:h1_n_cyber",
-   "att_overall": 0.05852371386961884,
-   "att_overall_se": 0.20104708912019414
+   "att_overall": 0.054927925961151036,
+   "att_overall_se": 0.27857499385535234
   },
   {
    "label": "H1 value (est_value_cyber_real)",
@@ -21,8 +21,8 @@
    "pretrend_wald": "unavailable: TypeError",
    "event": "table:h1_value",
    "cohort": "table:h1_value",
-   "att_overall": 0.0,
-   "att_overall_se": null
+   "att_overall": 0.06167327166262447,
+   "att_overall_se": 3.98563220881085
   },
   {
    "label": "H1 extensive: new buyers",
@@ -33,8 +33,8 @@
    "pretrend_wald": "unavailable: TypeError",
    "event": "table:h1_extensive_new_buyers",
    "cohort": "table:h1_extensive_new_buyers",
-   "att_overall": 0.09699240729589113,
-   "att_overall_se": 0.1596753877741333
+   "att_overall": 0.091072512441705,
+   "att_overall_se": 0.2536419917870734
   },
   {
    "label": "H1 intensive",
@@ -45,8 +45,8 @@
    "pretrend_wald": "unavailable: TypeError",
    "event": "table:h1_intensive_incumbent_value",
    "cohort": "table:h1_intensive_incumbent_value",
-   "att_overall": 0.0,
-   "att_overall_se": null
+   "att_overall": 5.262554857873963,
+   "att_overall_se": 2.8127778483103554
   },
   {
    "label": "H2 share (counts)",
@@ -57,17 +57,20 @@
    "pretrend_wald": "unavailable: TypeError",
    "event": "table:h2_share_n",
    "cohort": "table:h2_share_n",
-   "att_overall": 0.0019093007773858758,
-   "att_overall_se": 0.007138042120871233
+   "att_overall": 3.449880718439589e-05,
+   "att_overall_se": 0.01760789360080983
   },
   {
    "label": "H2 share (value)",
    "ycol": "share_cyber_value",
    "log": false,
    "anticipation": 0,
-   "estimator": "UNAVAILABLE (outcome has no observations this run)",
-   "event": null,
-   "att_overall": NaN
+   "estimator": "differences.ATTgt(universal, not_yet_treated, anticipation=0)",
+   "pretrend_wald": "unavailable: TypeError",
+   "event": "table:h2_share_value",
+   "cohort": "table:h2_share_value",
+   "att_overall": -0.012011412428738663,
+   "att_overall_se": 0.04451964332311276
   },
   {
    "label": "H3 accelerated share",
@@ -126,8 +129,8 @@
    "pretrend_wald": "unavailable: TypeError",
    "event": "table:h4_riskzone",
    "cohort": "table:h4_riskzone",
-   "att_overall": 0.0,
-   "att_overall_se": null
+   "att_overall": 0.19872792094380892,
+   "att_overall_se": 0.21858249993147572
   },
   {
    "label": "H4 nonrisk",
@@ -138,8 +141,8 @@
    "pretrend_wald": "unavailable: TypeError",
    "event": "table:h4_nonrisk",
    "cohort": "table:h4_nonrisk",
-   "att_overall": 0.05852371386961884,
-   "att_overall_se": 0.20104708912019414
+   "att_overall": -0.16350307352482313,
+   "att_overall_se": 0.27590439779952924
   },
   {
    "label": "H4 annexI",
@@ -150,8 +153,8 @@
    "pretrend_wald": "unavailable: TypeError",
    "event": "table:h4_annexI",
    "cohort": "table:h4_annexI",
-   "att_overall": 0.0,
-   "att_overall_se": null
+   "att_overall": 0.13954164884295164,
+   "att_overall_se": 0.2038739425135922
   },
   {
    "label": "H4 annexII",
@@ -162,8 +165,8 @@
    "pretrend_wald": "unavailable: TypeError",
    "event": "table:h4_annexII",
    "cohort": "table:h4_annexII",
-   "att_overall": 0.0,
-   "att_overall_se": null
+   "att_overall": 0.0005466950307674512,
+   "att_overall_se": 0.033362318723225856
   },
   {
    "label": "H1 anticipation=3",
@@ -174,8 +177,8 @@
    "pretrend_wald": "unavailable: TypeError",
    "event": "table:rob_anticipation3_n_cyber",
    "cohort": "table:rob_anticipation3_n_cyber",
-   "att_overall": 0.09947718018189848,
-   "att_overall_se": 0.22041676946700514
+   "att_overall": 0.12252951895164965,
+   "att_overall_se": 0.3175608227509336
   },
   {
    "label": "H1 anticipation=6",
@@ -186,8 +189,8 @@
    "pretrend_wald": "unavailable: TypeError",
    "event": "table:rob_anticipation6_n_cyber",
    "cohort": "table:rob_anticipation6_n_cyber",
-   "att_overall": -0.02099799952356805,
-   "att_overall_se": 0.21331241847090562
+   "att_overall": 0.2566098845877916,
+   "att_overall_se": 0.2762577328132334
   },
   {
    "label": "H1 cohort=midmonth_shift",
@@ -198,8 +201,8 @@
    "pretrend_wald": "unavailable: TypeError",
    "event": "table:rob_cohort_midmonth_shift",
    "cohort": "table:rob_cohort_midmonth_shift",
-   "att_overall": 0.07130121210392573,
-   "att_overall_se": 0.16593944191958745
+   "att_overall": -0.03173269801569499,
+   "att_overall_se": 0.24919294703822628
   },
   {
    "label": "H1 cohort=it_reporting_2026",
@@ -210,8 +213,8 @@
    "pretrend_wald": "unavailable: TypeError",
    "event": "table:rob_cohort_it_reporting_2026",
    "cohort": "table:rob_cohort_it_reporting_2026",
-   "att_overall": 0.07869152586150893,
-   "att_overall_se": 0.1963395735639816
+   "att_overall": -0.06872990195415644,
+   "att_overall_se": 0.2869326946929014
   },
   {
    "label": "honestdid",

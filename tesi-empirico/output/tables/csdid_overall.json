@@ -1,14 +1,14 @@
 {
  "y_cyber": {
-  "att_overall": 0.08927433516782658,
-  "att_overall_se": 0.13498301941921664,
-  "att_overall_full_horizon": -0.02552392430062708,
+  "att_overall": 0.15396780769344892,
+  "att_overall_se": 0.15588636498992633,
+  "att_overall_full_horizon": -0.355315301634583,
   "estimator": "differences.ATTgt (control_group=not_yet_treated, base_period=universal, analytic SEs; overall = mean event ATT e in [0,12]; SE is the package's full-horizon overall SE, reported as approximation)"
  },
  "share_cyber": {
-  "att_overall": 0.003106215481193036,
-  "att_overall_se": 0.004987499114993847,
-  "att_overall_full_horizon": 0.0029319470530234596,
+  "att_overall": 0.003386352517995367,
+  "att_overall_se": 0.009746464948832098,
+  "att_overall_full_horizon": -0.018807854554909378,
   "estimator": "differences.ATTgt (control_group=not_yet_treated, base_period=universal, analytic SEs; overall = mean event ATT e in [0,12]; SE is the package's full-horizon overall SE, reported as approximation)"
  }
 }

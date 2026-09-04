@@ -3,3 +3,4 @@ __pycache__/
 tests/tmp/
 # raw TED extractions can be large; manifest and everything derived is tracked
 output/ted_raw/*/
+output/ted_raw.tar

@@ -131,3 +131,17 @@ McCue & Boykin 2018).
 - **[2026-09-01 19:56 UTC] Reference data** — Eurostat fetched: HICP (prc_hicp_midx, I15, CP00, rebased 2021=100) for ['BE', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'HR', 'HU', 'IE', 'IT', 'LT', 'LV', 'SE', 'SK']; FX monthly averages (ert_bil_eur_m) for ['CZK', 'DKK', 'HRK', 'HUF', 'SEK'].
 
 - **[2026-09-01 20:42 UTC] Field re-pull (15_repull_fields.py)** — re-pulled ['notice-title', 'estimated-value-glo', 'estimated-value-cur-glo', 'estimated-value-proc', 'estimated-value-cur-proc', 'estimated-value-lot', 'estimated-value-cur-lot', 'total-value', 'total-value-cur', 'result-value-notice', 'result-value-cur-notice', 'tender-value', 'tender-value-cur', 'main-activity'] for 951 chunks (0 failed) and merged into ted_raw on publication-number; fixes the 2026-08-30 probe drop.
+
+- **[2026-09-01 20:45 UTC] Classification** — parsed 162279 raw notices. D1: dropped 806 exact publication-number duplicates. D2: notice classes kept for counts = ['award', 'tender']; full composition {'tender': 71512, 'award': 65070, 'modification': 14696, 'planning': 6400, 'award_direct_pre': 3646, 'unknown': 149} (planning/modification/unknown excluded from counts, retained in file). D3: dropped 8083 probable republications in 6022 key-groups (same country+class+buyer+title+month+amount; empty buyer/title excluded from dedup; buyer missing for 0.0% of notices). C5: 0 notices with no parsable CPV (classified 'other', never cyber/ICT). Categories among counted notices: {'ict_generic': 126028, 'cyber_broad': 1568, 'cyber_strict': 903}. Value parseable for 77986/128499 counted notices; 15 multicurrency amounts set NaN; missing values stay NaN (V1).
+
+- **[2026-09-01 20:45 UTC] Panel** — built 3752 rows. Z1: 0 country-months set to NaN because raw chunk missing/failed. F1: 61 amounts with unknown currency/rate left NaN. P1: fx_available=True, hicp_available=True. E1: post_eforms=1 from 2023-11; 2023-10 mixed month coded 0 and flagged month_2023_10.
+
+- **[2026-09-01 20:46 UTC] Estimation** — CS-DiD run: estimator 'differences.ATTgt (control_group=not_yet_treated, base_period=universal, analytic SEs; overall = mean event ATT e in [0,12]; SE is the package's full-horizon overall SE, reported as approximation)'; treated=11, never-treated=3.
+
+- **[2026-09-01 20:46 UTC] Panel v2** — built country×month (938 rows; 0 country-months NaN per Z1) and country×sector×month (16884 rows). Window frozen 2021-01..2026-07. FX/HICP available: True/True; 79 amounts unconverted. Buyer id = folded buyer name (proxy); cyber notices with empty buyer: 0.0% (excluded from buyer counts). div45 placebo: NOT extracted (column NaN).
+
+- **[2026-09-01 21:09 UTC] Estimation v2** — H1-H4 + robustness run on data/panel_country_month.csv; 11 treated countries; outputs in results/tables and figures/. HonestDiD: see table
+
+- **[2026-09-01 21:09 UTC] Placebos** — division 45 NOT extracted: placebo (a) not estimable this run (run 01_extract_ted.py --division 45)
+
+- **[2026-09-04] Raw archive location** — after the field re-pull the raw tree (`output/ted_raw/`, 141MB, 952 jsonl.gz + manifests) exceeds the 80MB commit threshold; `ted_raw.tar` (139MB) is therefore NOT committed (the stale 54MB tar without titles/values was removed from the branch). Full raw lives in the session container at `tesi-empirico/output/ted_raw/` and is exactly reproducible via `01_extract_ted.py` + `15_repull_fields.py` (manifests committed).
