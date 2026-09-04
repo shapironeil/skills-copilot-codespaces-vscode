@@ -1,2 +1,2 @@
 twfe_att,twfe_se_crv1,twfe_wildboot_p,sunab_att_post_mean
--0.300263562306532,0.13789886790439468,unavailable: TypingError,unavailable: FactorEvaluationError: Unable to evaluate factor `d_g45_e`. [NameError: `d_g45_e` is not present in the dataset or evaluation context.]
+-0.300263562306532,0.1378988679043947,0.0773077307730773,unavailable: FactorEvaluationError: Unable to evaluate factor `d_g45_e`. [NameError: `d_g45_e` is not present in the dataset or evaluation context.]

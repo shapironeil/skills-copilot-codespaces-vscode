@@ -1,6 +1,6 @@
 # LIMITS — deviations, non-estimable pieces, discretionary choices
 
-_Updated 2026-09-01 21:09 UTC by src/14_write_results_v2.py._
+_Updated 2026-09-04 09:40 UTC by src/14_write_results_v2.py._
 
 ## Data availability
 - Real TED data present.
@@ -17,12 +17,14 @@ _Updated 2026-09-01 21:09 UTC by src/14_write_results_v2.py._
 - cyber_broad depends on the multilingual keyword list (config/cyber_keywords.json); precision/recall quantified in results/tables/taxonomy_validation.csv when labeled.
 - Multi-lot amounts: lists summed; dict-wrapped single amounts max-of-leaves; multicurrency → NaN (CLEANING_LOG V1/V3).
 - Winsorized (1%/99%) value variants carried in the panel; baseline uses unwinsorized log1p.
+- Rule V4 (framework/DPS flag): value outcomes are dominated by framework/DPS mega-notices republished by central purchasing bodies (e.g. SKI 02.14 DKK 89.3bn ×4 publications, OGP €3.75bn); is_framework = eForms BT-765/766 indicator when present (post 2023-10), else title keywords + CPB buyer list + repeated identical big amounts (config/framework_rules.json). *_exfw variants exclude flagged notices; the flag is a proxy pre-eForms and the CPB list is not exhaustive.
 - Overall ATT defined as mean event-time ATT over e∈[0,18] (matches the reported window; package full-horizon overall kept in tables).
 
 ## Not estimable this run
 - Placebo (a) division 45: NOT extracted (run `01_extract_ted.py --division 45`); placebo (b) generic-ICT available instead.
 - Anticipation>0 specs exist only via the `differences` package (the manual fallback covers anticipation=0 only); if the package fails at runtime those specs are marked UNAVAILABLE in estimation_run.json.
 - HonestDiD sensitivity runs on the TWFE event study (CS event estimates lack a full cross-period vcov in the Python package); β/Σ exported for the R HonestDiD as the canonical check.
+- Joint Wald pre-trend test: the package call is repaired (differences 0.3.0 passes a removed kwarg internally), but with ~390 group-time pre-period restrictions against 14 country clusters the influence-function vcv is singular (rank ≈ 12), so the joint statistic is not identified and is reported as 'infeasible' rather than a spurious number; pre-trend assessment relies on the event-study plots and HonestDiD instead.
 
 ## Known data-quality limits (see output/CLEANING_LOG.md)
 - TED covers above-threshold (+ voluntary) procurement only; the NIS2-sensitive margin of small purchases is invisible.

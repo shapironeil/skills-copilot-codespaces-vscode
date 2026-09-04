@@ -153,3 +153,13 @@ McCue & Boykin 2018).
 - **[2026-09-04 08:27 UTC] Taxonomy validation labels** — 220 labels (60 strict, 40 broad, 120 borderline) assigned model-assisted (title+CPV read by the assistant, note per row in results/validation_sample.csv); sample redrawn seed=42 after title recovery. Strict precision 0.43 is dragged down by framework/DPS mega-bundles carrying the full 72* CPV range (see V4 framework flag).
 
 - **[2026-09-04 09:06 UTC] Field re-pull (15_repull_fields.py)** — re-pulled ['framework-agreement-lot', 'framework-agreement-part', 'dps-usage-lot', 'dps-usage-part', 'contract-framework-agreement', 'framework-notice-id'] for 951 chunks (0 failed) and merged into ted_raw on publication-number; fixes the 2026-08-30 probe drop.
+
+- **[2026-09-04 09:10 UTC] Rule V4 (framework/DPS flag)** — is_framework on 44973 of 153390 notices — components: eForms/legacy indicator 39516 (indicator fields present on 147844), title keyword 6287, central-purchasing buyer 2707, repeated identical amount >= 10,000,000 x2+ publications 6378. Value outcomes get *_exfw variants excluding flagged notices (config/framework_rules.json).
+
+- **[2026-09-04 09:10 UTC] Classification** — parsed 162279 raw notices. D1: dropped 806 exact publication-number duplicates. D2: notice classes kept for counts = ['award', 'tender']; full composition {'tender': 71512, 'award': 65070, 'modification': 14696, 'planning': 6400, 'award_direct_pre': 3646, 'unknown': 149} (planning/modification/unknown excluded from counts, retained in file). D3: dropped 8083 probable republications in 6022 key-groups (same country+class+buyer+title+month+amount; empty buyer/title excluded from dedup; buyer missing for 0.0% of notices). C5: 0 notices with no parsable CPV (classified 'other', never cyber/ICT). Categories among counted notices: {'ict_generic': 126028, 'cyber_broad': 1568, 'cyber_strict': 903}. Value parseable for 77986/128499 counted notices; 15 multicurrency amounts set NaN; missing values stay NaN (V1).
+
+- **[2026-09-04 09:11 UTC] Panel v2** — built country×month (938 rows; 0 country-months NaN per Z1) and country×sector×month (16884 rows). Window frozen 2021-01..2026-07. FX/HICP available: True/True; 79 amounts unconverted. Buyer id = folded buyer name (proxy); cyber notices with empty buyer: 0.0% (excluded from buyer counts). div45 placebo: NOT extracted (column NaN).
+
+- **[2026-09-04 09:40 UTC] Estimation v2** — H1-H4 + robustness run on data/panel_country_month.csv; 11 treated countries; outputs in results/tables and figures/. HonestDiD: see table
+
+- **[2026-09-04 09:40 UTC] Placebos** — division 45 NOT extracted: placebo (a) not estimable this run (run 01_extract_ted.py --division 45)

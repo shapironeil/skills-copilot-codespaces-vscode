@@ -1,6 +1,6 @@
 # §3.7 — Empirical results (NIS2 × TED cyber procurement)
 
-_Generated 2026-09-01 21:09 UTC by src/14_write_results_v2.py. Every number references the script and table it comes from. Window frozen 2021-01..2026-07._
+_Generated 2026-09-04 09:40 UTC by src/14_write_results_v2.py. Every number references the script and table it comes from. Window frozen 2021-01..2026-07._
 
 ## Data coverage (src/01_extract_ted.py → output/ted_raw/manifest.json)
 
@@ -28,7 +28,13 @@ _Generated 2026-09-01 21:09 UTC by src/14_write_results_v2.py. Every number refe
 
 ## Taxonomy validation (src/13_validation_sample.py)
 
-_Validation labels not yet scored (run 13 --draw, label, then --score)._
+| metric                                 |     value |   n | note                                                                                                                       |
+|:---------------------------------------|----------:|----:|:---------------------------------------------------------------------------------------------------------------------------|
+| precision_cyber_strict                 | 0.433333  |  60 | nan                                                                                                                        |
+| precision_cyber_broad                  | 0.875     |  40 | nan                                                                                                                        |
+| false_negative_rate_borderline_722_725 | 0.0166667 | 120 | share of borderline ict_generic that are truly cyber (recall proxy; population recall not identified — prevalence unknown) |
+
+_Recall caveat: population recall is not identified; the false-negative rate among borderline 722*/725* candidates is the reported proxy._
 
 ## ATT estimates (Callaway–Sant'Anna, control = not-yet-treated + never-in-window, base period universal, cluster country; overall = mean event ATT e∈[0,18])
 
@@ -40,6 +46,12 @@ _Validation labels not yet scored (run 13 --draw, label, then --score)._
 | H1 intensive: incumbent value (log1p) | 5.263 | 2.813 | src/11_estimation.py → results/tables/h1_intensive_incumbent_value_event.csv |
 | H2 cyber share of ICT (counts) | 0.000 | 0.018 | src/11_estimation.py → results/tables/h2_share_n_event.csv |
 | H2 cyber share of ICT (value) | -0.012 | 0.045 | src/11_estimation.py → results/tables/h2_share_value_event.csv |
+| H1 cyber value, framework/DPS excluded | -1.293 | 3.657 | src/11_estimation.py → results/tables/h1_value_exfw_event.csv |
+| H1 intensive, framework/DPS excluded | 1.402 | 2.585 | src/11_estimation.py → results/tables/h1_intensive_exfw_event.csv |
+| H2 value share, framework/DPS excluded | -0.049 | 0.062 | src/11_estimation.py → results/tables/h2_share_value_exfw_event.csv |
+| H1 cyber value, winsorized 1/99 | 0.043 | 3.955 | src/11_estimation.py → results/tables/h1_value_win_event.csv |
+| H1 intensive, winsorized 1/99 | 5.239 | 2.796 | src/11_estimation.py → results/tables/h1_intensive_win_event.csv |
+| H2 value share, winsorized 1/99 | -0.017 | 0.036 | src/11_estimation.py → results/tables/h2_share_value_win_event.csv |
 | H3 accelerated-procedure share | 0.000 | n/a | src/11_estimation.py → results/tables/h3_accel_share_event.csv |
 | H3 negotiated-w/o-call share | 0.000 | n/a | src/11_estimation.py → results/tables/h3_negwc_share_event.csv |
 | H3 contract modifications (log1p) | 0.033 | 0.238 | src/11_estimation.py → results/tables/h3_modifications_event.csv |
@@ -58,19 +70,19 @@ Event-study figures: figures/h1_*.png, h2_*.png, h3_*.png, h4_*.png, placebo_*.p
 
 ## Robustness estimators (src/11_estimation.py → results/tables/rob_twfe_sa_*.csv)
 
-|   twfe_att |   twfe_se_crv1 | twfe_wildboot_p          | sunab_att_post_mean                                                                                                                                  |
-|-----------:|---------------:|:-------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|
-|  -0.300264 |       0.137899 | unavailable: TypingError | unavailable: FactorEvaluationError: Unable to evaluate factor `d_g45_e`. [NameError: `d_g45_e` is not present in the dataset or evaluation context.] |
+|   twfe_att |   twfe_se_crv1 |   twfe_wildboot_p | sunab_att_post_mean                                                                                                                                  |
+|-----------:|---------------:|------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------|
+|  -0.300264 |       0.137899 |         0.0773077 | unavailable: FactorEvaluationError: Unable to evaluate factor `d_g45_e`. [NameError: `d_g45_e` is not present in the dataset or evaluation context.] |
 
 _TWFE is reported as comparison only (biased under heterogeneous staggered effects); wild cluster bootstrap p-value reported because N clusters ≤ 14._
 
 ## Pre-trend tests (src/12_placebos.py)
 
-| spec                  | pretrend_wald          |
-|:----------------------|:-----------------------|
-| placebo_b_ict_generic | unavailable: TypeError |
-| main_n_cyber          | unavailable: TypeError |
-| main_share            | unavailable: TypeError |
+| spec                  | pretrend_wald                                                                                                         |
+|:----------------------|:----------------------------------------------------------------------------------------------------------------------|
+| placebo_b_ict_generic | infeasible: 390 pre-period restrictions vs 14 clusters (vcv rank 12) — joint Wald not identified with so few clusters |
+| main_n_cyber          | infeasible: 390 pre-period restrictions vs 14 clusters (vcv rank 12) — joint Wald not identified with so few clusters |
+| main_share            | infeasible: 390 pre-period restrictions vs 14 clusters (vcv rank 12) — joint Wald not identified with so few clusters |
 
 ## Sensitivity — Rambachan–Roth (src/11_estimation.py)
 

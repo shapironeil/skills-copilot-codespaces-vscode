@@ -19,6 +19,8 @@ average FX; real = deflated by buyer-country all-items HICP (2021=100);
 | n_ict72_tenders | tenders in CPV division 72 (cyber + generic) |
 | n_ict_generic_tenders | division-72 tenders not classified cyber (placebo b) |
 | share_cyber_n / share_cyber_value | cyber share of division-72 tenders / value (H2) |
+| *_exfw (values, shares, n_cyber_tenders_exfw) | framework/DPS notices excluded (rule V4: eForms BT-765/766 indicator, title keywords, central-purchasing buyers, repeated identical big amounts) |
+| share_cyber_value_win / est_value_incumbent_real_win | winsorized-value variants of the H2 share and H1 intensive outcomes |
 | accel_share_ict / accel_share_cyber | share of accelerated procedures (H3) |
 | negwc_share_ict | share negotiated-without-call (H3) |
 | n_modifications_ict / _cyber | contract-modification notices, division 72 (H3) |
