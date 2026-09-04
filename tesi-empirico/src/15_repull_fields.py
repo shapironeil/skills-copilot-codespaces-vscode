@@ -32,17 +32,29 @@ extract = __import__("01_extract_ted")
 
 API_CFG = load_json("api.json")
 
-REPULL_FIELDS = [
-    "publication-number",
-    "notice-title",
-    "estimated-value-glo", "estimated-value-cur-glo",
-    "estimated-value-proc", "estimated-value-cur-proc",
-    "estimated-value-lot", "estimated-value-cur-lot",
-    "total-value", "total-value-cur",
-    "result-value-notice", "result-value-cur-notice",
-    "tender-value", "tender-value-cur",
-    "main-activity",
-]
+FIELD_SETS = {
+    # 2026-09-04: titles/values dropped by the broken probe of the 08-30 run
+    "values": [
+        "publication-number",
+        "notice-title",
+        "estimated-value-glo", "estimated-value-cur-glo",
+        "estimated-value-proc", "estimated-value-cur-proc",
+        "estimated-value-lot", "estimated-value-cur-lot",
+        "total-value", "total-value-cur",
+        "result-value-notice", "result-value-cur-notice",
+        "tender-value", "tender-value-cur",
+        "main-activity",
+    ],
+    # framework/DPS indicators (BT-765/BT-766 + legacy) for the V4 flag
+    "framework": [
+        "publication-number",
+        "framework-agreement-lot", "framework-agreement-part",
+        "dps-usage-lot", "dps-usage-part",
+        "contract-framework-agreement",
+        "framework-notice-id",
+    ],
+}
+REPULL_FIELDS = FIELD_SETS["values"]
 
 FIELDS_MANIFEST = RAW_DIR / "manifest_fields.json"
 
@@ -88,7 +100,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--test", action="store_true",
                     help="one chunk (IT 2025-01) then stop")
+    ap.add_argument("--set", choices=sorted(FIELD_SETS), default="values",
+                    help="which field set to re-pull (own manifest each)")
     args = ap.parse_args()
+    global REPULL_FIELDS, FIELDS_MANIFEST
+    REPULL_FIELDS = FIELD_SETS[args.set]
+    if args.set != "values":
+        FIELDS_MANIFEST = RAW_DIR / f"manifest_fields_{args.set}.json"
 
     manifest = extract.load_manifest()
     chunks = manifest.get("chunks", {})

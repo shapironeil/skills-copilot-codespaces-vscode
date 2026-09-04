@@ -145,3 +145,9 @@ McCue & Boykin 2018).
 - **[2026-09-01 21:09 UTC] Placebos** — division 45 NOT extracted: placebo (a) not estimable this run (run 01_extract_ted.py --division 45)
 
 - **[2026-09-04] Raw archive location** — after the field re-pull the raw tree (`output/ted_raw/`, 141MB, 952 jsonl.gz + manifests) exceeds the 80MB commit threshold; `ted_raw.tar` (139MB) is therefore NOT committed (the stale 54MB tar without titles/values was removed from the branch). Full raw lives in the session container at `tesi-empirico/output/ted_raw/` and is exactly reproducible via `01_extract_ted.py` + `15_repull_fields.py` (manifests committed).
+
+- **[2026-09-04 08:23 UTC] Field re-pull (15_repull_fields.py)** — re-pulled ['framework-agreement-lot', 'framework-agreement-part', 'dps-usage-lot', 'dps-usage-part', 'contract-framework-agreement', 'framework-notice-id'] for 1 chunks (0 failed) and merged into ted_raw on publication-number; fixes the 2026-08-30 probe drop.
+
+- **[2026-09-04 08:27 UTC] Taxonomy validation** — precision/recall table written from 220 labeled notices (results/validation_sample.csv)
+
+- **[2026-09-04 08:27 UTC] Taxonomy validation labels** — 220 labels (60 strict, 40 broad, 120 borderline) assigned model-assisted (title+CPV read by the assistant, note per row in results/validation_sample.csv); sample redrawn seed=42 after title recovery. Strict precision 0.43 is dragged down by framework/DPS mega-bundles carrying the full 72* CPV range (see V4 framework flag).

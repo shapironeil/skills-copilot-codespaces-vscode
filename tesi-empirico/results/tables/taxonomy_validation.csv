@@ -1,0 +1,4 @@
+metric,value,n,note
+precision_cyber_strict,0.43333333333333335,60,
+precision_cyber_broad,0.875,40,
+false_negative_rate_borderline_722_725,0.016666666666666666,120,share of borderline ict_generic that are truly cyber (recall proxy; population recall not identified — prevalence unknown)
