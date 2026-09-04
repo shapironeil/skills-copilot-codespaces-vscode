@@ -7247,6 +7247,238 @@
    "fetched": 1223,
    "pagination_dupes_dropped": 0,
    "file": "FR/2023-11.jsonl.gz"
+  },
+  "FR/2023-12": {
+   "status": "complete",
+   "month": "2023-12",
+   "total_reported": 1606,
+   "fetched": 1606,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2023-12.jsonl.gz"
+  },
+  "FR/2024-01": {
+   "status": "complete",
+   "month": "2024-01",
+   "total_reported": 1143,
+   "fetched": 1143,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2024-01.jsonl.gz"
+  },
+  "FR/2024-02": {
+   "status": "complete",
+   "month": "2024-02",
+   "total_reported": 1390,
+   "fetched": 1390,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2024-02.jsonl.gz"
+  },
+  "FR/2024-03": {
+   "status": "complete",
+   "month": "2024-03",
+   "total_reported": 1310,
+   "fetched": 1310,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2024-03.jsonl.gz"
+  },
+  "FR/2024-04": {
+   "status": "complete",
+   "month": "2024-04",
+   "total_reported": 1435,
+   "fetched": 1435,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2024-04.jsonl.gz"
+  },
+  "FR/2024-05": {
+   "status": "complete",
+   "month": "2024-05",
+   "total_reported": 1291,
+   "fetched": 1291,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2024-05.jsonl.gz"
+  },
+  "FR/2024-06": {
+   "status": "complete",
+   "month": "2024-06",
+   "total_reported": 1424,
+   "fetched": 1424,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2024-06.jsonl.gz"
+  },
+  "FR/2024-07": {
+   "status": "complete",
+   "month": "2024-07",
+   "total_reported": 1801,
+   "fetched": 1801,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2024-07.jsonl.gz"
+  },
+  "FR/2024-08": {
+   "status": "complete",
+   "month": "2024-08",
+   "total_reported": 1091,
+   "fetched": 1091,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2024-08.jsonl.gz"
+  },
+  "FR/2024-09": {
+   "status": "complete",
+   "month": "2024-09",
+   "total_reported": 1165,
+   "fetched": 1165,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2024-09.jsonl.gz"
+  },
+  "FR/2024-10": {
+   "status": "complete",
+   "month": "2024-10",
+   "total_reported": 1412,
+   "fetched": 1412,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2024-10.jsonl.gz"
+  },
+  "FR/2024-11": {
+   "status": "complete",
+   "month": "2024-11",
+   "total_reported": 1082,
+   "fetched": 1082,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2024-11.jsonl.gz"
+  },
+  "FR/2024-12": {
+   "status": "complete",
+   "month": "2024-12",
+   "total_reported": 1395,
+   "fetched": 1395,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2024-12.jsonl.gz"
+  },
+  "FR/2025-01": {
+   "status": "complete",
+   "month": "2025-01",
+   "total_reported": 1503,
+   "fetched": 1503,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2025-01.jsonl.gz"
+  },
+  "FR/2025-02": {
+   "status": "complete",
+   "month": "2025-02",
+   "total_reported": 1295,
+   "fetched": 1295,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2025-02.jsonl.gz"
+  },
+  "FR/2025-03": {
+   "status": "complete",
+   "month": "2025-03",
+   "total_reported": 1423,
+   "fetched": 1423,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2025-03.jsonl.gz"
+  },
+  "FR/2025-04": {
+   "status": "complete",
+   "month": "2025-04",
+   "total_reported": 1483,
+   "fetched": 1483,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2025-04.jsonl.gz"
+  },
+  "FR/2025-05": {
+   "status": "complete",
+   "month": "2025-05",
+   "total_reported": 1309,
+   "fetched": 1309,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2025-05.jsonl.gz"
+  },
+  "FR/2025-06": {
+   "status": "complete",
+   "month": "2025-06",
+   "total_reported": 1416,
+   "fetched": 1416,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2025-06.jsonl.gz"
+  },
+  "FR/2025-07": {
+   "status": "complete",
+   "month": "2025-07",
+   "total_reported": 1736,
+   "fetched": 1736,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2025-07.jsonl.gz"
+  },
+  "FR/2025-08": {
+   "status": "complete",
+   "month": "2025-08",
+   "total_reported": 1039,
+   "fetched": 1039,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2025-08.jsonl.gz"
+  },
+  "FR/2025-09": {
+   "status": "complete",
+   "month": "2025-09",
+   "total_reported": 1336,
+   "fetched": 1336,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2025-09.jsonl.gz"
+  },
+  "FR/2025-10": {
+   "status": "complete",
+   "month": "2025-10",
+   "total_reported": 1509,
+   "fetched": 1509,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2025-10.jsonl.gz"
+  },
+  "FR/2025-11": {
+   "status": "complete",
+   "month": "2025-11",
+   "total_reported": 1182,
+   "fetched": 1182,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2025-11.jsonl.gz"
+  },
+  "FR/2025-12": {
+   "status": "complete",
+   "month": "2025-12",
+   "total_reported": 1578,
+   "fetched": 1578,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2025-12.jsonl.gz"
+  },
+  "FR/2026-01": {
+   "status": "complete",
+   "month": "2026-01",
+   "total_reported": 1310,
+   "fetched": 1310,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2026-01.jsonl.gz"
+  },
+  "FR/2026-02": {
+   "status": "complete",
+   "month": "2026-02",
+   "total_reported": 1168,
+   "fetched": 1168,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2026-02.jsonl.gz"
+  },
+  "FR/2026-03": {
+   "status": "complete",
+   "month": "2026-03",
+   "total_reported": 1542,
+   "fetched": 1542,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2026-03.jsonl.gz"
+  },
+  "FR/2026-04": {
+   "status": "complete",
+   "month": "2026-04",
+   "total_reported": 1388,
+   "fetched": 1388,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2026-04.jsonl.gz"
   }
  },
  "meta": {
