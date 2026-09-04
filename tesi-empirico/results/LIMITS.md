@@ -1,6 +1,6 @@
 # LIMITS — deviations, non-estimable pieces, discretionary choices
 
-_Updated 2026-09-04 09:40 UTC by src/14_write_results_v2.py._
+_Updated 2026-09-04 13:09 UTC by src/14_write_results_v2.py._
 
 ## Data availability
 - Real TED data present.
@@ -21,7 +21,7 @@ _Updated 2026-09-04 09:40 UTC by src/14_write_results_v2.py._
 - Overall ATT defined as mean event-time ATT over e∈[0,18] (matches the reported window; package full-horizon overall kept in tables).
 
 ## Not estimable this run
-- Placebo (a) division 45: NOT extracted (run `01_extract_ted.py --division 45`); placebo (b) generic-ICT available instead.
+- Placebo (a) division 45: extracted.
 - Anticipation>0 specs exist only via the `differences` package (the manual fallback covers anticipation=0 only); if the package fails at runtime those specs are marked UNAVAILABLE in estimation_run.json.
 - HonestDiD sensitivity runs on the TWFE event study (CS event estimates lack a full cross-period vcov in the Python package); β/Σ exported for the R HonestDiD as the canonical check.
 - Joint Wald pre-trend test: the package call is repaired (differences 0.3.0 passes a removed kwarg internally), but with ~390 group-time pre-period restrictions against 14 country clusters the influence-function vcv is singular (rank ≈ 12), so the joint statistic is not identified and is reported as 'infeasible' rather than a spurious number; pre-trend assessment relies on the event-study plots and HonestDiD instead.

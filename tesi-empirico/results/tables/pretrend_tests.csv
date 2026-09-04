@@ -1,4 +1,5 @@
 spec,pretrend_wald
 placebo_b_ict_generic,infeasible: 390 pre-period restrictions vs 14 clusters (vcv rank 12) — joint Wald not identified with so few clusters
+placebo_a_div45,infeasible: 390 pre-period restrictions vs 14 clusters (vcv rank 12) — joint Wald not identified with so few clusters
 main_n_cyber,infeasible: 390 pre-period restrictions vs 14 clusters (vcv rank 12) — joint Wald not identified with so few clusters
 main_share,infeasible: 390 pre-period restrictions vs 14 clusters (vcv rank 12) — joint Wald not identified with so few clusters

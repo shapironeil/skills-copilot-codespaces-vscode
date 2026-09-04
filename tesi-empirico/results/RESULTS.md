@@ -1,6 +1,6 @@
 # §3.7 — Empirical results (NIS2 × TED cyber procurement)
 
-_Generated 2026-09-04 09:40 UTC by src/14_write_results_v2.py. Every number references the script and table it comes from. Window frozen 2021-01..2026-07._
+_Generated 2026-09-04 13:09 UTC by src/14_write_results_v2.py. Every number references the script and table it comes from. Window frozen 2021-01..2026-07._
 
 ## Data coverage (src/01_extract_ted.py → output/ted_raw/manifest.json)
 
@@ -11,16 +11,16 @@ _Generated 2026-09-04 09:40 UTC by src/14_write_results_v2.py. Every number refe
 
 | country   |   months |   months_missing |   cyber_tenders |   ict72_tenders |   new_buyers |
 |:----------|---------:|-----------------:|----------------:|----------------:|-------------:|
-| BE        |       67 |                0 |              54 |            3369 |           36 |
-| DE        |       67 |                0 |             254 |           14113 |          142 |
-| DK        |       67 |                0 |              19 |            1223 |           11 |
+| BE        |       67 |                0 |              54 |            3368 |           36 |
+| DE        |       67 |                0 |             254 |           14109 |          142 |
+| DK        |       67 |                0 |              19 |            1222 |           11 |
 | ES        |       67 |                0 |             258 |           11299 |          163 |
 | FI        |       67 |                0 |              44 |            3165 |           31 |
 | FR        |       67 |                0 |             234 |           12173 |          172 |
 | HR        |       67 |                0 |              16 |            1344 |           10 |
 | HU        |       67 |                0 |              46 |            1121 |            6 |
 | IE        |       67 |                0 |             174 |            2924 |           92 |
-| IT        |       67 |                0 |              35 |            2853 |           21 |
+| IT        |       67 |                0 |              35 |            2852 |           21 |
 | LT        |       67 |                0 |              40 |            2923 |           23 |
 | LV        |       67 |                0 |              13 |             910 |            6 |
 | SE        |       67 |                0 |              74 |            5444 |           55 |
@@ -60,7 +60,7 @@ _Recall caveat: population recall is not identified; the false-negative rate amo
 | H4 Annex I sectors | 0.140 | 0.204 | src/11_estimation.py → results/tables/h4_annexI_event.csv |
 | H4 Annex II sectors | 0.001 | 0.033 | src/11_estimation.py → results/tables/h4_annexII_event.csv |
 | Placebo (b): generic ICT | -0.075 | 0.121 | src/11_estimation.py → results/tables/placebo_b_ict_generic_event.csv |
-| Placebo (a): construction div. 45 | _not produced_ | | src/11_estimation.py |
+| Placebo (a): construction div. 45 | 0.064 | 0.137 | src/11_estimation.py → results/tables/placebo_a_div45_event.csv |
 | H1, anticipation 3m | 0.123 | 0.318 | src/11_estimation.py → results/tables/rob_anticipation3_n_cyber_event.csv |
 | H1, anticipation 6m | 0.257 | 0.276 | src/11_estimation.py → results/tables/rob_anticipation6_n_cyber_event.csv |
 | H1, mid-month cohort shift | -0.032 | 0.249 | src/11_estimation.py → results/tables/rob_cohort_midmonth_shift_event.csv |
@@ -81,6 +81,7 @@ _TWFE is reported as comparison only (biased under heterogeneous staggered effec
 | spec                  | pretrend_wald                                                                                                         |
 |:----------------------|:----------------------------------------------------------------------------------------------------------------------|
 | placebo_b_ict_generic | infeasible: 390 pre-period restrictions vs 14 clusters (vcv rank 12) — joint Wald not identified with so few clusters |
+| placebo_a_div45       | infeasible: 390 pre-period restrictions vs 14 clusters (vcv rank 12) — joint Wald not identified with so few clusters |
 | main_n_cyber          | infeasible: 390 pre-period restrictions vs 14 clusters (vcv rank 12) — joint Wald not identified with so few clusters |
 | main_share            | infeasible: 390 pre-period restrictions vs 14 clusters (vcv rank 12) — joint Wald not identified with so few clusters |
 
