@@ -193,7 +193,8 @@ def validate_cpv_filtering(client: TedClient, query: str) -> bool:
         if any(c.startswith(DIVISION) for c in cpvs):
             ok += 1
     share = ok / len(notices)
-    print(f"  CPV-filter validation: {ok}/{len(notices)} notices carry CPV 72*")
+    print(f"  CPV-filter validation: {ok}/{len(notices)} notices carry "
+          f"CPV {DIVISION}*")
     return share >= 0.95
 
 
@@ -414,7 +415,7 @@ def extract_chunk(client, template, country2, iso3, month, fields, page_size):
 
     return {"status": "complete", "month": month, "total_reported": sum(totals),
             "fetched": len(unique), "pagination_dupes_dropped": dupes,
-            "file": str(out_path.relative_to(RAW_DIR))}
+            "file": str(out_path.relative_to(raw_base_dir()))}
 
 
 # ------------------------------------------------------------------------ main
@@ -433,7 +434,12 @@ def main():
                     help="on a resume whose probed template/fields differ from "
                          "the previous run, discard completed chunks and "
                          "re-extract everything under the new meta")
+    ap.add_argument("--division", default="72", choices=["72", "45"],
+                    help="CPV division: 72 (ICT, default) or 45 "
+                         "(construction, placebo a)")
     args = ap.parse_args()
+    global DIVISION
+    DIVISION = args.division
 
     ccfg = load_countries()
     window = ccfg["study_window"]

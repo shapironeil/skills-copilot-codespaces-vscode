@@ -17,6 +17,7 @@
     "buyer-country={iso3} AND publication-date>={d0} AND publication-date<={d1}"
   ],
   "_query_templates_comment": "Template 1-2: server-side CPV division filter (wildcard) - preferred, small volume. Template 3: parent-code filter, works only if the API expands the CPV hierarchy server-side; the extractor VALIDATES this by checking that returned notices actually carry non-728xx/72xx children before trusting it. Template 4: LAST RESORT - no CPV filter, full country-month volume, client-side filtering; the extractor asks for confirmation via --allow-unfiltered before using it.",
+  "_fields_comment": "2026-09-04: every name below verified against the API's own supported-values list (the 08-30 run lost fields to a probe bug: the 400 for an unsupported name does not say which, and the fallback halving discarded valid names with the invalid estimated-value/-cur). Includes the correct value fields (proc/lot/glo + result/tender), title, and the BT-765/766 framework-DPS indicators used by rule V4.",
   "fields_superset": [
     "publication-number",
     "publication-date",
@@ -33,9 +34,20 @@
     "total-value-cur",
     "estimated-value-glo",
     "estimated-value-cur-glo",
-    "estimated-value",
-    "estimated-value-cur",
+    "estimated-value-proc",
+    "estimated-value-cur-proc",
+    "estimated-value-lot",
+    "estimated-value-cur-lot",
+    "result-value-notice",
+    "result-value-cur-notice",
+    "tender-value",
+    "tender-value-cur",
     "main-activity",
+    "framework-agreement-lot",
+    "framework-agreement-part",
+    "dps-usage-lot",
+    "dps-usage-part",
+    "contract-framework-agreement",
     "links"
   ]
 }
