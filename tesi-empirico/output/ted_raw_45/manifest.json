@@ -7479,6 +7479,30 @@
    "fetched": 1388,
    "pagination_dupes_dropped": 0,
    "file": "FR/2026-04.jsonl.gz"
+  },
+  "FR/2026-05": {
+   "status": "complete",
+   "month": "2026-05",
+   "total_reported": 1033,
+   "fetched": 1033,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2026-05.jsonl.gz"
+  },
+  "FR/2026-06": {
+   "status": "complete",
+   "month": "2026-06",
+   "total_reported": 1414,
+   "fetched": 1414,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2026-06.jsonl.gz"
+  },
+  "FR/2026-07": {
+   "status": "complete",
+   "month": "2026-07",
+   "total_reported": 1452,
+   "fetched": 1452,
+   "pagination_dupes_dropped": 0,
+   "file": "FR/2026-07.jsonl.gz"
   }
  },
  "meta": {
