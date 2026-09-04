@@ -111,8 +111,26 @@ def cs(p, ycol, log=True, anticipation=0, label=""):
         coh.columns = ["cohort_time"] + [f"c{i}" for i in range(len(coh.columns) - 1)]
 
         try:
-            wald = att.wald_pre_test()
-            out["pretrend_wald"] = str(wald)[:400]
+            # att.wald_pre_test() is broken in differences 0.3.0 (calls
+            # results(sample_name=...), a removed kwarg) — go through the
+            # utility directly, and refuse the test when the pre-period
+            # restrictions outnumber the clusters (vcv singular, the
+            # statistic explodes to ~1e61 instead of failing)
+            from differences.models.attgt.utility_ntl import (
+                filter_ntl, get_vcv_from_if, stack_influence_funcs,
+                wald_pre_test as _wald)
+            ntl = att._result_dict["full_sample"]["ATTgt_ntl"]
+            pre = filter_ntl(ntl=ntl, pre=True, non_zero_influence_func=True)
+            vcv, n_cl = get_vcv_from_if(
+                inf_funcs=stack_influence_funcs(pre), return_n_obs=True)
+            if len(pre) >= n_cl:
+                out["pretrend_wald"] = (
+                    f"infeasible: {len(pre)} pre-period restrictions vs "
+                    f"{n_cl} clusters (vcv rank "
+                    f"{np.linalg.matrix_rank(vcv)}) — joint Wald not "
+                    f"identified with so few clusters")
+            else:
+                out["pretrend_wald"] = str(_wald(ntl))[:400]
         except Exception as e:
             out["pretrend_wald"] = f"unavailable: {type(e).__name__}"
 
@@ -177,8 +195,11 @@ def twfe_and_sa(p, ycol, log=True, stem="rob_twfe_sa"):
     df = df.dropna(subset=["y"])
     rows = {}
 
+    # integer cluster ids: wildboottest's numba kernels reject the string
+    # country codes (object-dtype array -> TypingError)
+    df["cid"] = df["country"].astype("category").cat.codes.astype("int64")
     m = pf.feols("y ~ treated | country + month", data=df,
-                 vcov={"CRV1": "country"})
+                 vcov={"CRV1": "cid"})
     rows["twfe_att"] = float(m.coef()["treated"])
     rows["twfe_se_crv1"] = float(m.se()["treated"])
     try:

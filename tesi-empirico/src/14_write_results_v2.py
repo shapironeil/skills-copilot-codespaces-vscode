@@ -227,6 +227,13 @@ def write_limits():
          "- HonestDiD sensitivity runs on the TWFE event study (CS event "
          "estimates lack a full cross-period vcov in the Python package); "
          "β/Σ exported for the R HonestDiD as the canonical check.",
+         "- Joint Wald pre-trend test: the package call is repaired "
+         "(differences 0.3.0 passes a removed kwarg internally), but with "
+         "~390 group-time pre-period restrictions against 14 country "
+         "clusters the influence-function vcv is singular (rank ≈ 12), so "
+         "the joint statistic is not identified and is reported as "
+         "'infeasible' rather than a spurious number; pre-trend assessment "
+         "relies on the event-study plots and HonestDiD instead.",
          "",
          "## Known data-quality limits (see output/CLEANING_LOG.md)",
          "- TED covers above-threshold (+ voluntary) procurement only; the "
